@@ -3,7 +3,7 @@ import Button from "@/pages/Button";
 import Header from "@/pages/Header";
 import { useRouter } from "next/navigation";
 
-export default function Home() {
+export default function HomePage() {
   const router = useRouter();
 
   const handleOrderClick = () => {
@@ -19,7 +19,7 @@ export default function Home() {
             Try our delicious breakfast served straight to your room
           </p>
           <Button
-            href="/numbers"
+            onClick={handleOrderClick}
             className="mt-4 bg-custom-orange text-black shadow-md font-bold text-sm py-2 px-4 rounded"
           >
             Order breakfast
