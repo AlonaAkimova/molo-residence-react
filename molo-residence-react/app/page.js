@@ -1,14 +1,8 @@
 "use client";
-import Button from "@/pages/Button";
 import Header from "@/pages/Header";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function HomePage() {
-  const router = useRouter();
-
-  const handleOrderClick = () => {
-    router.push("/numbers");
-  };
   return (
     <>
       <Header />
@@ -18,12 +12,11 @@ export default function HomePage() {
           <p className="text-lg">
             Try our delicious breakfast served straight to your room
           </p>
-          <Button
-            onClick={handleOrderClick}
-            className="mt-4 bg-custom-orange text-black shadow-md font-bold text-sm py-2 px-4 rounded"
-          >
-            Order breakfast
-          </Button>
+          <Link href="/guest-list">
+            <div className="mt-4 bg-custom-orange text-black shadow-md font-bold text-sm py-2 px-3 rounded cursor-pointer">
+              Order breakfast
+            </div>
+          </Link>
         </div>
       </div>
     </>
