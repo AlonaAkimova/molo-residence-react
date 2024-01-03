@@ -2,7 +2,7 @@
 
 import React, { useContext } from "react";
 import Link from "next/link";
-import Header from "@/pages/Header";
+import Header from "@/components/Header";
 import { GuestListContext } from "./GuestListProvider";
 export default function GuestNumber() {
   const { numberOfGuests, handleDecrease, handleIncrease } =

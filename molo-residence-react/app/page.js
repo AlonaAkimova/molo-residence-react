@@ -1,5 +1,5 @@
 "use client";
-import Header from "@/pages/Header";
+import Header from "@/components/Header";
 import Link from "next/link";
 
 export default function HomePage() {
