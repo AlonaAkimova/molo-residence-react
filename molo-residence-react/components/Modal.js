@@ -1,12 +1,12 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BREAKFAST_MENU } from "@/public/breakfasts";
 import { FormControlLabel, Radio, RadioGroup, Button } from "@mui/material";
-
+import { useRouter } from "next/navigation";
 export default function Modal({ selectedBreakfast, closeModal }) {
   const [optionsData, setOptionsData] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
-
+  const router = useRouter();
   useEffect(() => {
     if (selectedBreakfast) {
       const selectedItem = BREAKFAST_MENU.find(
@@ -39,7 +39,7 @@ export default function Modal({ selectedBreakfast, closeModal }) {
   };
 
   const handleNextClick = () => {
-    // Handling the next step after selecting an option
+    router.push("/drinks-menu");
   };
 
   return (

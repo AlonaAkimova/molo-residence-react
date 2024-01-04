@@ -4,19 +4,24 @@ import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import { BREAKFAST_MENU } from "@/public/breakfasts";
 import Modal from "@/components/Modal";
+import { useRouter } from "next/navigation";
 export default function BreakfastList() {
   const [menuData, setMenuData] = useState(BREAKFAST_MENU);
   const [loading, setLoading] = useState(false);
   const [selectedBreakfast, setSelectedBreakfast] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const router = useRouter();
   useEffect(() => {}, []);
 
   function handleBreakfastClick(item) {
     setSelectedBreakfast(item);
-    if (
+    const openModal =
       item.name === "Breakfast as you like it" ||
-      item.name === "Energy Breakfast"
-    ) {
+      item.name === "Energy Breakfast";
+
+    if (!openModal) {
+      router.push("/drinks-menu");
+    } else {
       setShowModal(true);
     }
   }
