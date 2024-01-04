@@ -1,4 +1,5 @@
 import "./globals.css";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { GuestListProvider } from "./guest-list/GuestListProvider";
 export const metadata = {
   title: "Next.js",
@@ -8,9 +9,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <GuestListProvider>
-        <body>{children}</body>
-      </GuestListProvider>
+      <AppRouterCacheProvider>
+        <GuestListProvider>
+          <body>{children}</body>
+        </GuestListProvider>
+      </AppRouterCacheProvider>
     </html>
   );
 }

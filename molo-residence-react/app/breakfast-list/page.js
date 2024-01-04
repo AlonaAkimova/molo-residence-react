@@ -2,24 +2,28 @@
 
 import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
-import { fetchMenuData } from "@/components/MenuData";
-
+import { BREAKFAST_MENU } from "@/public/breakfasts";
+import Modal from "@/components/Modal";
 export default function BreakfastList() {
-  const [menuData, setMenuData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [menuData, setMenuData] = useState(BREAKFAST_MENU);
+  const [loading, setLoading] = useState(false);
+  const [selectedBreakfast, setSelectedBreakfast] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  useEffect(() => {}, []);
 
-  useEffect(() => {
-    fetchMenuData()
-      .then((menu) => {
-        setMenuData(menu);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching menu data:", error);
-        setLoading(false);
-      });
-  }, []);
-
+  function handleBreakfastClick(item) {
+    setSelectedBreakfast(item);
+    if (
+      item.name === "Breakfast as you like it" ||
+      item.name === "Energy Breakfast"
+    ) {
+      setShowModal(true);
+    }
+  }
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedBreakfast(null);
+  };
   return (
     <>
       <Header />
@@ -37,10 +41,22 @@ export default function BreakfastList() {
                   <div className="flex flex-col items-center">
                     <h3 className="text-xl font-semibold mb-2">{item.name}</h3>
                     <p className="text-gray-700">{item.description}</p>
+                    <button
+                      onClick={() => handleBreakfastClick(item)}
+                      className="mt-4 bg-custom-orange text-black shadow-md font-bold text-sm py-2 px-3 rounded cursor-pointer"
+                    >
+                      Select
+                    </button>
                   </div>
                 </li>
               ))}
             </ul>
+          )}
+          {showModal && (
+            <Modal
+              selectedBreakfast={selectedBreakfast}
+              closeModal={closeModal}
+            />
           )}
         </div>
       </div>
