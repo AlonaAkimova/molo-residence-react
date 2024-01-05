@@ -5,7 +5,7 @@ import moloLogo from "../../src/assets/molo-residence-logo.png";
 export default function Header() {
   return (
     <div className="flex justify-center items-start w-full bg-black">
-      <div className="w-18 h-18 flex items-center justify-center">
+      <div className="w-17 h-17 flex items-center justify-center">
         <Image
           src={moloLogo}
           alt="Logo"
