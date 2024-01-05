@@ -1,13 +1,13 @@
 "use client";
 import React, { createContext, useContext, useState } from "react";
 
-export const BreakfastOrderContext = createContext();
+export const BreakfastOrderContext = createContext({});
 
 export function useBreakfastOrder() {
   return useContext(BreakfastOrderContext);
 }
 
-export default function BreakfastOrderProvider({ children }) {
+export const BreakfastOrderProvider = ({ children }) => {
   const [breakfastOrder, setBreakfastOrder] = useState({
     selectedBreakfast: null,
     selectedHotDrink: "",
@@ -26,4 +26,5 @@ export default function BreakfastOrderProvider({ children }) {
       {children}
     </BreakfastOrderContext.Provider>
   );
-}
+};
+export const useBreakfastOrderContext = () => useContext(BreakfastOrderContext);

@@ -11,11 +11,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <AppRouterCacheProvider>
-        {/* <BreakfastOrderProvider> */}
-        <GuestListProvider>
-          <body>{children}</body>
-        </GuestListProvider>
-        {/* </BreakfastOrderProvider> */}
+        <BreakfastOrderProvider>
+          <GuestListProvider>
+            <body>{children}</body>
+          </GuestListProvider>
+        </BreakfastOrderProvider>
       </AppRouterCacheProvider>
     </html>
   );

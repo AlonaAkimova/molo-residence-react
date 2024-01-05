@@ -6,13 +6,14 @@ import { BREAKFAST_MENU } from "@/public/breakfasts";
 import Modal from "@/components/Modal";
 import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
+import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
 export default function BreakfastList() {
   const [menuData, setMenuData] = useState(BREAKFAST_MENU);
   const [loading, setLoading] = useState(false);
   const [selectedBreakfast, setSelectedBreakfast] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
-  useEffect(() => {}, []);
+  const { setBreakfastOrderData } = useBreakfastOrder();
 
   function handleBreakfastClick(item) {
     setSelectedBreakfast(item);
@@ -21,6 +22,7 @@ export default function BreakfastList() {
       item.name === "Energy Breakfast";
 
     if (!openModal) {
+      setBreakfastOrderData({ selectedBreakfast: item });
       router.push("/drinks-menu");
     } else {
       setShowModal(true);

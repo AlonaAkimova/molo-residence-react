@@ -8,10 +8,11 @@ import MenuItem from "@mui/material/MenuItem";
 import { HOTDRINK_MENU } from "@/public/hotdrinks";
 import { COLDDRINK_MENU } from "@/public/colddrinks";
 import Button from "@/components/Button";
+import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
 export default function DrinksMenu() {
   const [selectedHotDrink, setSelectedHotDrink] = useState("");
   const [selectedColdDrink, setSelectedColdDrink] = useState("");
-
+  const { setBreakfastOrderData } = useBreakfastOrder();
   const handleHotDrinkChange = (event) => {
     setSelectedHotDrink(event.target.value);
   };
@@ -19,7 +20,12 @@ export default function DrinksMenu() {
   const handleColdDrinkChange = (event) => {
     setSelectedColdDrink(event.target.value);
   };
-
+  const handleNextClick = () => {
+    setBreakfastOrderData({
+      selectedHotDrink: selectedHotDrink,
+      selectedColdDrink: selectedColdDrink,
+    });
+  };
   return (
     <>
       <Header />
@@ -60,7 +66,7 @@ export default function DrinksMenu() {
                   </MenuItem>
                 ))}
               </Select>
-              <Button>Next</Button>
+              <Button onClick={handleNextClick}>Next</Button>
             </FormControl>
           </div>
         </div>
