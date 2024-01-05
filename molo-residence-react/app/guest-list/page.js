@@ -1,13 +1,25 @@
 "use client";
 
 import React, { useContext } from "react";
-import Link from "next/link";
+
 import Header from "@/components/Header";
-import { GuestListContext } from "./GuestListProvider";
+// import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
+import { GuestListContext } from "../../store/GuestListProvider";
 import Button from "@/components/Button";
+import { useRouter } from "next/navigation";
+
 export default function GuestNumber() {
   const { numberOfGuests, handleDecrease, handleIncrease } =
     useContext(GuestListContext);
+
+  // const { breakfastOrder, setBreakfastOrderData } = useBreakfastOrder();
+
+  const router = useRouter();
+
+  const handleNextClick = () => {
+    // setBreakfastOrderData({ numberOfGuests });
+    router.push("/breakfast-list");
+  };
 
   return (
     <>
@@ -30,11 +42,12 @@ export default function GuestNumber() {
               +
             </Button>
           </div>
-          <Link href="/breakfast-list">
-            <div className="mt-4 bg-custom-orange text-black shadow-md font-bold text-sm py-2 px-4 rounded cursor-pointer">
-              Go to breakfast menu
-            </div>
-          </Link>
+          <div
+            onClick={handleNextClick}
+            className="mt-4 bg-custom-orange text-black shadow-md font-bold text-sm py-2 px-4 rounded cursor-pointer"
+          >
+            Go to breakfast menu
+          </div>
         </div>
       </div>
     </>
