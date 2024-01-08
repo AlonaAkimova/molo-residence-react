@@ -1,15 +1,13 @@
 "use client";
-
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Header from "@/components/Header";
 import { BREAKFAST_MENU } from "@/public/breakfasts";
 import Modal from "@/components/Modal";
 import { useRouter } from "next/navigation";
-import Button from "@/components/Button";
+import BreakfastItem from "@/components/BreakfastItem";
 import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
 export default function BreakfastList() {
   const [menuData, setMenuData] = useState(BREAKFAST_MENU);
-  const [loading, setLoading] = useState(false);
   const [selectedBreakfast, setSelectedBreakfast] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
@@ -23,6 +21,7 @@ export default function BreakfastList() {
 
     if (!openModal) {
       setBreakfastOrderData({ selectedBreakfast: item });
+      router.push("/drinks-menu");
     } else {
       setBreakfastOrderData({ selectedBreakfast: item });
       setShowModal(true);
@@ -32,6 +31,12 @@ export default function BreakfastList() {
     setShowModal(false);
     setSelectedBreakfast(null);
   };
+
+  function renderBreakfasts() {
+    return menuData.map((item) => (
+      <BreakfastItem key={item.id} item={item} onClick={handleBreakfastClick} />
+    ));
+  }
   return (
     <>
       <Header />
@@ -40,23 +45,7 @@ export default function BreakfastList() {
           <h1 className="text-2xl font-bold mb-6">
             Which breakfast do you prefer?
           </h1>
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
-            <ul>
-              {menuData.map((item) => (
-                <li key={item.id} className="mb-6">
-                  <div className="flex flex-col items-center">
-                    <h3 className="text-xl font-semibold mb-2">{item.name}</h3>
-                    <p className="text-gray-700">{item.description}</p>
-                    <Button onClick={() => handleBreakfastClick(item)}>
-                      Select
-                    </Button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
+          <ul>{renderBreakfasts()}</ul>
           {showModal && (
             <Modal
               selectedBreakfast={selectedBreakfast}
