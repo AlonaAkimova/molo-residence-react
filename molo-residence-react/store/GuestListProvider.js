@@ -7,15 +7,15 @@ export const GuestListProvider = ({ children }) => {
   const [numberOfGuests, setNumberOfGuests] = useState(1);
 
   const handleDecrease = () => {
-    if (numberOfGuests > 1) {
-      setNumberOfGuests(numberOfGuests - 1);
-    }
+    setNumberOfGuests((prevGuests) =>
+      prevGuests > 1 ? prevGuests - 1 : prevGuests
+    );
   };
 
   const handleIncrease = () => {
-    if (numberOfGuests < 6) {
-      setNumberOfGuests(numberOfGuests + 1);
-    }
+    setNumberOfGuests((prevGuests) =>
+      prevGuests < 6 ? prevGuests + 1 : prevGuests
+    );
   };
 
   const value = {
