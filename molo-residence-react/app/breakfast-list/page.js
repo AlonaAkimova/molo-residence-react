@@ -23,8 +23,8 @@ export default function BreakfastList() {
 
     if (!openModal) {
       setBreakfastOrderData({ selectedBreakfast: item });
-      router.push("/drinks-menu");
     } else {
+      setBreakfastOrderData({ selectedBreakfast: item });
       setShowModal(true);
     }
   }

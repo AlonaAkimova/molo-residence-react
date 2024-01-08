@@ -4,12 +4,12 @@ import React, { useState, useEffect } from "react";
 import { BREAKFAST_MENU } from "@/public/breakfasts";
 import { FormControlLabel, Radio, RadioGroup, Button } from "@mui/material";
 import { useRouter } from "next/navigation";
-
+import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
 export default function Modal({ selectedBreakfast, closeModal }) {
   const [optionsData, setOptionsData] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
   const router = useRouter();
-
+  const { setBreakfastOrderData } = useBreakfastOrder();
   useEffect(() => {
     if (selectedBreakfast) {
       const selectedItem = BREAKFAST_MENU.find(
@@ -42,6 +42,9 @@ export default function Modal({ selectedBreakfast, closeModal }) {
   };
 
   const handleNextClick = () => {
+    if (selectedOption) {
+      setBreakfastOrderData({ selectedHotDrink: selectedOption });
+    }
     router.push("/drinks-menu");
   };
 
