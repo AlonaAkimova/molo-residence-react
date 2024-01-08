@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Header from "@/components/Header";
+import { useRouter } from "next/navigation";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
@@ -13,6 +14,7 @@ export default function DrinksMenu() {
   const [selectedHotDrink, setSelectedHotDrink] = useState("");
   const [selectedColdDrink, setSelectedColdDrink] = useState("");
   const { setBreakfastOrderData } = useBreakfastOrder();
+  const router = useRouter();
   const handleHotDrinkChange = (event) => {
     setSelectedHotDrink(event.target.value);
   };
@@ -25,6 +27,7 @@ export default function DrinksMenu() {
       selectedHotDrink: selectedHotDrink,
       selectedColdDrink: selectedColdDrink,
     });
+    router.push("/summary-page");
   };
   return (
     <>
