@@ -12,6 +12,7 @@ export const BreakfastOrderProvider = ({ children }) => {
     selectedBreakfast: null,
     selectedHotDrink: "",
     selectedColdDrink: "",
+    selectedOption: "",
     numberOfGuests: 1,
   });
 

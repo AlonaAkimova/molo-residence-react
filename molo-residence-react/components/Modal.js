@@ -43,7 +43,7 @@ export default function Modal({ selectedBreakfast, closeModal }) {
 
   const handleNextClick = () => {
     if (selectedOption) {
-      setBreakfastOrderData({ selectedHotDrink: selectedOption });
+      setBreakfastOrderData({ selectedOption });
     }
     router.push("/drinks-menu");
   };
