@@ -14,7 +14,7 @@ export default function Summary() {
     setSelectedOption(selectedOption || "");
   }, [breakfastOrder]);
 
-  const renderSummary = () => {
+  function renderSummary() {
     const {
       selectedBreakfast,
       selectedHotDrink,
@@ -58,7 +58,7 @@ export default function Summary() {
           : orderDetails}
       </div>
     );
-  };
+  }
 
   return (
     <>
