@@ -4,17 +4,12 @@ export const BREAKFAST_MENU = [
     name: "Energy Breakfast",
     description:
       "A hot beverage, juice, cold cuts and cheese plate, mix vegetables, fruits, honey, jam, butter, bread, sweet pastry, hot sausages or scrambled eggs",
-    option1: "scrambled eggs",
-    option2: "hot sausages",
-    option3: "fried eggs",
   },
   {
     id: 2,
     name: "Breakfast as you like it",
     description:
       "A hot beverage, juice, honey, jam, fruits, butter, bread, sweet pastry. Toast with salmon with vegetables or pancakes with cottage cheese with fruits.",
-    option1: "toast with salmon and vegetables",
-    option2: "pancakes with cottage cheese and fruits",
   },
   {
     id: 3,

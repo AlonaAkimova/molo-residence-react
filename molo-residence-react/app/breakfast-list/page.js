@@ -2,41 +2,39 @@
 import React, { useState } from "react";
 import Header from "@/components/Header";
 import { BREAKFAST_MENU } from "@/public/breakfasts";
-import Modal from "@/components/Modal";
 import { useRouter } from "next/navigation";
 import BreakfastItem from "@/components/BreakfastItem";
 import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
+
 export default function BreakfastList() {
   const [menuData, setMenuData] = useState(BREAKFAST_MENU);
-  const [selectedBreakfast, setSelectedBreakfast] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const [selectedBreakfast, setSelectedBreakfast] = useState([]);
+
   const router = useRouter();
   const { setBreakfastOrderData } = useBreakfastOrder();
 
   function handleBreakfastClick(item) {
     setSelectedBreakfast(item);
-    const openModal =
-      item.name === "Breakfast as you like it" ||
-      item.name === "Energy Breakfast";
-
-    if (!openModal) {
-      setBreakfastOrderData({ selectedBreakfast: item });
-      router.push("/drinks-menu");
-    } else {
-      setBreakfastOrderData({ selectedBreakfast: item });
-      setShowModal(true);
+    setBreakfastOrderData({ selectedBreakfast: item });
+    switch (item.name) {
+      case "Breakfast as you like it":
+        router.push("/breakfast-list/breakfast-as-you-like-it");
+        break;
+      case "Energy Breakfast":
+        router.push("/breakfast-list/energy-breakfast");
+        break;
+      default:
+        router.push("/drinks-menu");
+        break;
     }
   }
-  const closeModal = () => {
-    setShowModal(false);
-    setSelectedBreakfast(null);
-  };
 
   function renderBreakfasts() {
     return menuData.map((item) => (
       <BreakfastItem key={item.id} item={item} onClick={handleBreakfastClick} />
     ));
   }
+
   return (
     <>
       <Header />
@@ -46,12 +44,6 @@ export default function BreakfastList() {
             Which breakfast do you prefer?
           </h1>
           <ul>{renderBreakfasts()}</ul>
-          {showModal && (
-            <Modal
-              selectedBreakfast={selectedBreakfast}
-              closeModal={closeModal}
-            />
-          )}
         </div>
       </div>
     </>

@@ -35,7 +35,7 @@ export default function DrinksMenu() {
       <div className="bg-breakfast-background bg-cover bg-center h-screen flex items-center justify-center">
         <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
           <h1 className="text-2xl font-bold mb-6 text-center">
-            Choose a drink
+            Something to drink?
           </h1>
           <div className="space-y-4">
             <SelectHotDrink
