@@ -6,11 +6,5 @@ export const BREAKFASTASYOULIKEIT_EXTRAS = [
   { id: 2, name: "pancakes with cottage cheese and fruits" },
 ];
 export async function fetchBreakfastAsYouLikeIt() {
-  const res = await fetch("/breakfastAsYouLikeItExtras.json");
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch breakfast data");
-  }
-
-  return res.json();
+  return BREAKFASTASYOULIKEIT_EXTRAS;
 }

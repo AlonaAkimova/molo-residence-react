@@ -13,6 +13,7 @@ export const BreakfastOrderProvider = ({ children }) => {
     selectedHotDrink: "",
     selectedColdDrink: "",
     selectedOption: "",
+    selectedOptions: {},
     numberOfGuests: 1,
   });
 

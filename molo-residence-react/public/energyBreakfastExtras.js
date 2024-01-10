@@ -1,10 +1,22 @@
+"use client";
 export const ENERGY_BREAKFAST_EXTRAS = [
   {
     id: 1,
     name: "scrambled eggs",
-    option1: "on butter",
-    option2: "with bacon",
-    option3: "with ham",
+    options: [
+      {
+        id: 1,
+        name: "on butter",
+      },
+      {
+        id: 2,
+        name: "with ham",
+      },
+      {
+        id: 3,
+        name: "with bacon",
+      },
+    ],
   },
   { id: 2, name: "hot sausages" },
   {
@@ -13,11 +25,5 @@ export const ENERGY_BREAKFAST_EXTRAS = [
   },
 ];
 export async function fetchEnergyBreakfastExtras() {
-  const res = await fetch("/energyBreakfastExtras.json");
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch breakfast data");
-  }
-
-  return res.json();
+  return ENERGY_BREAKFAST_EXTRAS;
 }

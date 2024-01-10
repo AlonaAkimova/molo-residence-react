@@ -17,10 +17,10 @@
 }
 
 body {
-  margin: 0;
+  /* margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden;
+  overflow: hidden; */
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -29,7 +29,7 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
-.full-height {
+/* .full-height {
   height: 100vh;
   overflow-y: auto;
-}
+} */

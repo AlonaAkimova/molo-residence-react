@@ -26,11 +26,5 @@ export const BREAKFAST_MENU = [
 ];
 
 export async function fetchBreakfasts() {
-  const res = await fetch("/breakfasts.json");
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch breakfast data");
-  }
-
-  return res.json();
+  return BREAKFAST_MENU;
 }
