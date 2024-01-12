@@ -1,20 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import { useRouter } from "next/navigation";
 import SelectHotDrink from "@/components/SelectHotDrink";
 import SelectColdDrink from "@/components/SelectHotDrink";
-import { HOTDRINK_MENU } from "@/public/hotdrinks";
-import { COLDDRINK_MENU } from "@/public/colddrinks";
 import Button from "@/components/Button";
 import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
-
 export default function DrinksMenu() {
   const [selectedHotDrink, setSelectedHotDrink] = useState("");
   const [selectedColdDrink, setSelectedColdDrink] = useState("");
-  const { setBreakfastOrderData } = useBreakfastOrder();
+  const { setBreakfastOrderData, numberOfGuests, menuData } =
+    useBreakfastOrder();
   const router = useRouter();
 
+  useEffect(() => {
+    console.log("coldDrinks:", menuData.colddrinks);
+    console.log("hotDrinks:", menuData.hotdrinks);
+  }, [menuData]);
   const handleHotDrinkChange = (event) => {
     setSelectedHotDrink(event.target.value);
   };
@@ -27,6 +29,7 @@ export default function DrinksMenu() {
       selectedHotDrink: selectedHotDrink,
       selectedColdDrink: selectedColdDrink,
     });
+
     router.push("/summary-page");
   };
   return (
@@ -39,12 +42,12 @@ export default function DrinksMenu() {
           </h1>
           <div className="space-y-4">
             <SelectHotDrink
-              options={HOTDRINK_MENU}
+              options={menuData.hotdrinks}
               value={selectedHotDrink}
               onChange={handleHotDrinkChange}
             />
             <SelectColdDrink
-              options={COLDDRINK_MENU}
+              options={menuData.colddrinks}
               value={selectedColdDrink}
               onChange={handleColdDrinkChange}
             />

@@ -1,22 +1,30 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
-import { BREAKFAST_MENU } from "@/public/breakfasts";
 import { useRouter } from "next/navigation";
+import GuestNumberParagraph from "@/components/TrackGuestNumber";
 import BreakfastItem from "@/components/BreakfastItem";
 import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
 
 export default function BreakfastList() {
-  const [menuData, setMenuData] = useState(BREAKFAST_MENU);
   const [selectedBreakfast, setSelectedBreakfast] = useState([]);
-
+  const [currentGuestNumber, setCurrentGuestNumber] = useState(1);
   const router = useRouter();
-  const { setBreakfastOrderData } = useBreakfastOrder();
+  const { setBreakfastOrderData, numberOfGuests, menuData } =
+    useBreakfastOrder();
+  useEffect(() => {
+    setBreakfastOrderData({ numberOfGuests });
+  }, [numberOfGuests]);
+  useEffect(() => {
+    setCurrentGuestNumber(1); // Reset guest number when numberOfGuests changes
+  }, [numberOfGuests]);
 
-  function handleBreakfastClick(item) {
-    setSelectedBreakfast(item);
-    setBreakfastOrderData({ selectedBreakfast: item });
-    switch (item.name) {
+  function handleBreakfastClick(breakfast) {
+    setSelectedBreakfast(breakfast);
+    setBreakfastOrderData({ selectedBreakfast: breakfast });
+    setCurrentGuestNumber((prevNumber) => prevNumber + 1);
+
+    switch (breakfast.name) {
       case "Breakfast as you like it":
         router.push("/breakfast-list/breakfast-as-you-like-it");
         break;
@@ -30,8 +38,12 @@ export default function BreakfastList() {
   }
 
   function renderBreakfasts() {
-    return menuData.map((item) => (
-      <BreakfastItem key={item.id} item={item} onClick={handleBreakfastClick} />
+    return menuData.breakfasts.map((breakfasts) => (
+      <BreakfastItem
+        key={breakfasts.id}
+        breakfast={breakfasts}
+        onClick={handleBreakfastClick}
+      />
     ));
   }
 
@@ -43,6 +55,10 @@ export default function BreakfastList() {
           <h1 className="text-2xl font-bold mb-6">
             Which breakfast do you prefer?
           </h1>
+          {numberOfGuests > 1 && (
+            <GuestNumberParagraph currentGuestNumber={currentGuestNumber} />
+          )}
+
           <ul>{renderBreakfasts()}</ul>
         </div>
       </div>

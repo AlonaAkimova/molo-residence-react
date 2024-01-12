@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
 import Button from "@/components/Button";
 export default function Summary() {
-  const { breakfastOrder } = useBreakfastOrder();
+  const { breakfastOrder, guestSelections, numberOfGuests } =
+    useBreakfastOrder();
   const [selectedOption, setSelectedOption] = useState("");
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export default function Summary() {
     } = breakfastOrder;
 
     function confirmOrder() {
-      console.log("Order Confirmed");
+      console.log(breakfastOrder, "Order Confirmed");
     }
 
     return (
@@ -35,20 +36,9 @@ export default function Summary() {
             <>
               <p>
                 Breakfast: {selectedBreakfast.name}
-                {selectedOption && ` (${selectedOption})`}
+                {selectedOptions[selectedBreakfast.id] &&
+                  ` (${selectedOptions[selectedBreakfast.id].name})`}
               </p>
-
-              {selectedBreakfast.options &&
-                selectedOptions[selectedBreakfast.id] && (
-                  <p>
-                    {selectedBreakfast.options
-                      .filter(
-                        (option) =>
-                          option.id === selectedOptions[selectedBreakfast.id]
-                      )
-                      .map((selectedOption) => selectedOption.name)}
-                  </p>
-                )}
               <p>Hot Drink: {selectedHotDrink}</p>
               <p>Cold Drink: {selectedColdDrink}</p>
               <p>Number of Guests: {numberOfGuests}</p>

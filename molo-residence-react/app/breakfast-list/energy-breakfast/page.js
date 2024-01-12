@@ -1,9 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
-import { ENERGY_BREAKFAST_EXTRAS } from "@/public/energyBreakfastExtras";
+import GuestNumberParagraph from "@/components/TrackGuestNumber";
 import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
 import Checkbox from "@mui/material/Checkbox";
 import Radio from "@mui/material/Radio";
@@ -15,22 +15,33 @@ import { grey } from "@mui/material/colors";
 export default function EnergyBreakfast() {
   const [selectedBreakfast, setSelectedBreakfast] = useState(null);
   const [selectedOptions, setSelectedOptions] = useState({});
+  const [currentGuestNumber, setCurrentGuestNumber] = useState(1);
   const router = useRouter();
-  const { setBreakfastOrderData } = useBreakfastOrder();
+  const { setBreakfastOrderData, menuData, numberOfGuests } =
+    useBreakfastOrder();
+  const selectedBreakfastId = 1;
+
+  useEffect(() => {
+    console.log("Menu Data:", menuData);
+  }, [menuData]);
+
+  useEffect(() => {
+    setCurrentGuestNumber(1);
+  }, [numberOfGuests]);
 
   const handleBreakfastChange = (selectedId) => {
-    const changeBreakfasts = ENERGY_BREAKFAST_EXTRAS.find(
+    const changeBreakfast = menuData.extras.find(
       (breakfast) => breakfast.id === selectedId
     );
-    setSelectedBreakfast(changeBreakfasts);
+    setSelectedBreakfast(changeBreakfast);
     setSelectedOptions({});
   };
 
   const handleCheckboxChange = (optionId, breakfastId) => {
-    setSelectedOptions({
-      ...selectedOptions,
+    setSelectedOptions((prevOptions) => ({
+      ...prevOptions,
       [breakfastId]: optionId,
-    });
+    }));
   };
 
   const handleSelectClick = () => {
@@ -71,44 +82,58 @@ export default function EnergyBreakfast() {
             >
               Select option
             </FormLabel>
-            {ENERGY_BREAKFAST_EXTRAS.map((breakfast) => (
-              <div key={breakfast.id}>
-                <FormControlLabel
-                  control={
-                    <Radio
-                      checked={selectedBreakfast?.id === breakfast.id}
-                      onChange={() => handleBreakfastChange(breakfast.id)}
-                      name="radio-buttons"
-                      sx={{
-                        color: grey[700],
-                        "&.Mui-checked": {
-                          color: grey[700],
-                        },
-                      }}
+            {numberOfGuests > 1 && (
+              <GuestNumberParagraph currentGuestNumber={currentGuestNumber} />
+            )}
+
+            {menuData &&
+              menuData.extras
+                .filter((item) => item.breakfastId === selectedBreakfastId)
+                .map((breakfast) => (
+                  <div key={breakfast.id}>
+                    <FormControlLabel
+                      control={
+                        <Radio
+                          checked={selectedBreakfast?.id === breakfast.id}
+                          onChange={() => handleBreakfastChange(breakfast.id)}
+                          name="radio-buttons"
+                          sx={{
+                            color: grey[700],
+                            "&.Mui-checked": {
+                              color: grey[700],
+                            },
+                          }}
+                        />
+                      }
+                      label={breakfast.name}
                     />
-                  }
-                  label={breakfast.name}
-                />
-                {selectedBreakfast?.id === breakfast.id && (
-                  <div className="flex flex-row">
-                    {breakfast.options &&
-                      breakfast.options.map((option) => (
-                        <div key={option.id} className="optionItem">
-                          <Checkbox
-                            checked={
-                              selectedOptions[breakfast.id] === option.id
-                            }
-                            onChange={() =>
-                              handleCheckboxChange(option.id, breakfast.id)
-                            }
-                          />
-                          <span className="breakfastOption">{option.name}</span>
-                        </div>
-                      ))}
+                    {selectedBreakfast?.id === breakfast.id && (
+                      <div className="flex flex-row">
+                        {menuData.options &&
+                          menuData.options
+                            .filter((option) => option.extraId === breakfast.id)
+                            .map((option) => (
+                              <div key={option.id} className="optionItem">
+                                <Checkbox
+                                  checked={
+                                    selectedOptions[breakfast.id] === option.id
+                                  }
+                                  onChange={() =>
+                                    handleCheckboxChange(
+                                      option.id,
+                                      breakfast.id
+                                    )
+                                  }
+                                />
+                                <span className="breakfastOption">
+                                  {option.name}
+                                </span>
+                              </div>
+                            ))}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            ))}
+                ))}
 
             <Button onClick={handleSelectClick}>Select</Button>
           </FormControl>

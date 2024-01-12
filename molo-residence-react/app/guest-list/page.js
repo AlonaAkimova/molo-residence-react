@@ -2,14 +2,16 @@
 import React, { useContext } from "react";
 import Header from "@/components/Header";
 import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
-import { GuestListContext } from "../../store/GuestListProvider";
 import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
 
 export default function GuestNumber() {
-  const { numberOfGuests, handleDecrease, handleIncrease } =
-    useContext(GuestListContext);
-  const { breakfastOrder, setBreakfastOrderData } = useBreakfastOrder();
+  const {
+    numberOfGuests,
+    handleDecrease,
+    handleIncrease,
+    setBreakfastOrderData,
+  } = useBreakfastOrder();
   const router = useRouter();
 
   const handleNextClick = () => {
