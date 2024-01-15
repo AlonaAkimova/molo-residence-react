@@ -22,7 +22,6 @@ export const BREAKFAST_OPTIONS = [
   { id: 1, name: "on butter", breakfastId: 1 },
   { id: 2, name: "with ham", breakfastId: 1 },
   { id: 3, name: "with bacon", breakfastId: 1 },
-  // ... other options ...
 ];
 
 // BREAKFAST_MENU
@@ -41,7 +40,7 @@ export const BREAKFAST_MENU = [
     description:
       "A hot beverage, juice, honey, jam, fruits, butter, bread, sweet pastry. Toast with salmon with vegetables or pancakes with cottage cheese with fruits.",
     extras: [1, 2], // Link to BREAKFAST_EXTRAS
-    options: [], // Breakfast as you like it may not have additional options
+    options: [],
   },
   {
     id: 3,
@@ -74,6 +73,15 @@ export const HOTDRINK_MENU = [
   { id: 4, name: "Hot drinks", description: "Cappuccino" },
   { id: 5, name: "Hot drinks", description: "Latte" },
 ];
+
+export async function fetchBreakfastDatabase() {
+  return {
+    breakfasts: BREAKFAST_MENU,
+    extras: BREAKFAST_EXTRAS,
+    colddrinks: COLDDRINK_MENU,
+    hotdrinks: HOTDRINK_MENU,
+  };
+}
 
 // export const BREAKFAST_MENU = [
 //   {
@@ -137,12 +145,3 @@ export const HOTDRINK_MENU = [
 //   { id: 4, name: "Hot drinks", description: "Cappuccino" },
 //   { id: 5, name: "Hot drinks", description: "Latte" },
 // ];
-
-// export async function fetchBreakfastDatabase() {
-//   return {
-//     breakfasts: BREAKFAST_MENU,
-//     extras: BREAKFAST_EXTRAS,
-//     colddrinks: COLDDRINK_MENU,
-//     hotdrinks: HOTDRINK_MENU,
-//   };
-// }

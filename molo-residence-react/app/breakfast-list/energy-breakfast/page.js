@@ -89,16 +89,6 @@ export default function EnergyBreakfast() {
 
     setBreakfastOrderData(guestChoice);
     router.push("/drinks-menu");
-
-    // Log the guest's choices to the console
-    console.log("Entire Context:", {
-      numberOfGuests,
-      breakfastOrder: {
-        ...breakfastOrder,
-        ...guestChoice,
-      },
-      selectedOptions,
-    });
   }
 
   return (
