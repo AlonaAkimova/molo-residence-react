@@ -1,18 +1,14 @@
 "use client";
-
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
-import { useRouter } from "next/navigation";
+
 import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
 import Button from "@/components/Button";
 export default function Summary() {
-  const { breakfastOrder, guestSelections, numberOfGuests } =
-    useBreakfastOrder();
-  const [selectedOption, setSelectedOption] = useState("");
+  const { breakfastOrder, numberOfGuests } = useBreakfastOrder();
 
   useEffect(() => {
-    const { selectedOption } = breakfastOrder;
-    setSelectedOption(selectedOption || "");
+    console.log("Breakfast Order:", breakfastOrder);
   }, [breakfastOrder]);
 
   function renderSummary() {
@@ -21,11 +17,13 @@ export default function Summary() {
       selectedHotDrink,
       selectedColdDrink,
       numberOfGuests,
+      selectedExtras,
       selectedOptions,
     } = breakfastOrder;
 
     function confirmOrder() {
       console.log(breakfastOrder, "Order Confirmed");
+      // Send the summary to the database or perform any other actions
     }
 
     return (
@@ -34,13 +32,19 @@ export default function Summary() {
           <h1 className="text-2xl font-bold mb-6">Summary</h1>
           {selectedBreakfast && (
             <>
-              <p>
-                Breakfast: {selectedBreakfast.name}
-                {selectedOptions[selectedBreakfast.id] &&
-                  ` (${selectedOptions[selectedBreakfast.id].name})`}
-              </p>
-              <p>Hot Drink: {selectedHotDrink}</p>
-              <p>Cold Drink: {selectedColdDrink}</p>
+              <p>Breakfast: {selectedBreakfast.name}</p>
+              <p>Description: {selectedBreakfast.description}</p>
+              {selectedExtras && <p>Selected Option: {selectedExtras}</p>}
+              {selectedOptions.length > 0 && (
+                <p>
+                  Additional:{" "}
+                  {selectedOptions
+                    .map((option) => (option.name ? option.name : option))
+                    .join(", ")}
+                </p>
+              )}
+              {selectedHotDrink && <p>Hot Drink: {selectedHotDrink}</p>}
+              {selectedColdDrink && <p>Cold Drink: {selectedColdDrink}</p>}
               <p>Number of Guests: {numberOfGuests}</p>
               <Button onClick={confirmOrder}>Confirm order</Button>
             </>

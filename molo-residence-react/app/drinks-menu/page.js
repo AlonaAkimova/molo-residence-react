@@ -5,18 +5,25 @@ import { useRouter } from "next/navigation";
 import SelectHotDrink from "@/components/SelectHotDrink";
 import SelectColdDrink from "@/components/SelectHotDrink";
 import Button from "@/components/Button";
+import GuestNumberParagraph from "@/components/TrackGuestNumber";
 import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
 export default function DrinksMenu() {
   const [selectedHotDrink, setSelectedHotDrink] = useState("");
   const [selectedColdDrink, setSelectedColdDrink] = useState("");
   const { setBreakfastOrderData, numberOfGuests, menuData } =
     useBreakfastOrder();
+  const [currentGuestNumber, setCurrentGuestNumber] = useState(1);
   const router = useRouter();
 
   useEffect(() => {
     console.log("coldDrinks:", menuData.colddrinks);
     console.log("hotDrinks:", menuData.hotdrinks);
   }, [menuData]);
+
+  useEffect(() => {
+    setCurrentGuestNumber(1);
+  }, [numberOfGuests]);
+
   const handleHotDrinkChange = (event) => {
     setSelectedHotDrink(event.target.value);
   };
@@ -40,6 +47,9 @@ export default function DrinksMenu() {
           <h1 className="text-2xl font-bold mb-6 text-center">
             Something to drink?
           </h1>
+          {numberOfGuests > 1 && (
+            <GuestNumberParagraph currentGuestNumber={currentGuestNumber} />
+          )}
           <div className="space-y-4">
             <SelectHotDrink
               options={menuData.hotdrinks}

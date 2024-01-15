@@ -13,7 +13,7 @@ import GuestNumberParagraph from "@/components/TrackGuestNumber";
 export default function BreakfastAsYouLikeIt() {
   const { setBreakfastOrderData, menuData, numberOfGuests } =
     useBreakfastOrder();
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedExtras, setSelectedExtras] = useState(null);
   const [selectedBreakfast, setSelectedBreakfast] = useState(null);
   const [currentGuestNumber, setCurrentGuestNumber] = useState(1);
   const router = useRouter();
@@ -31,7 +31,7 @@ export default function BreakfastAsYouLikeIt() {
     setCurrentGuestNumber(1);
   }, [numberOfGuests]);
   function handleChange(event) {
-    setSelectedOption(event.target.value);
+    setSelectedExtras(event.target.value);
   }
 
   function handleRadioSelection(chooseBreakfast) {
@@ -39,11 +39,23 @@ export default function BreakfastAsYouLikeIt() {
   }
 
   function handleSelectClick() {
-    if (!selectedBreakfast) {
+    if (!selectedBreakfast || selectedExtras === "") {
       return;
     }
+
+    const selectedBreakfastInfo = menuData.breakfasts.find(
+      (item) => item.id === selectedBreakfast.breakfastId
+    );
+    console.log("Selected Breakfast:", selectedBreakfastInfo);
+    console.log("Selected Option:", selectedExtras);
+
     setBreakfastOrderData({
-      selectedBreakfast,
+      selectedBreakfast: {
+        id: selectedBreakfastInfo.id,
+        name: selectedBreakfastInfo.name,
+        description: selectedBreakfastInfo.description,
+      },
+      selectedExtras,
     });
     router.push("/drinks-menu");
   }
@@ -57,7 +69,7 @@ export default function BreakfastAsYouLikeIt() {
           {numberOfGuests > 1 && (
             <GuestNumberParagraph currentGuestNumber={currentGuestNumber} />
           )}
-          <RadioGroup value={selectedOption} onChange={handleChange}>
+          <RadioGroup value={selectedExtras} onChange={handleChange}>
             {menuData && menuData.extras
               ? menuData.extras
                   .filter((item) => item.breakfastId === 2)
