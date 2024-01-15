@@ -32,20 +32,44 @@ export default function Summary() {
           <h1 className="text-2xl font-bold mb-6">Summary</h1>
           {selectedBreakfast && (
             <>
-              <p>Breakfast: {selectedBreakfast.name}</p>
-              <p>Description: {selectedBreakfast.description}</p>
-              {selectedExtras && <p>Selected Option: {selectedExtras}</p>}
+              <p>
+                <span className="font-semibold">Breakfast:</span>{" "}
+                {selectedBreakfast.name}
+              </p>
+              <p>
+                <span className="font-semibold">Description:</span>{" "}
+                {selectedBreakfast.description}
+              </p>
+              {selectedExtras && (
+                <p>
+                  <span className="font-semibold">Selected Option:</span>{" "}
+                  {selectedExtras}
+                </p>
+              )}
               {selectedOptions.length > 0 && (
                 <p>
-                  Additional:{" "}
+                  <span className="font-semibold">Additional:</span>{" "}
                   {selectedOptions
                     .map((option) => (option.name ? option.name : option))
                     .join(", ")}
                 </p>
               )}
-              {selectedHotDrink && <p>Hot Drink: {selectedHotDrink}</p>}
-              {selectedColdDrink && <p>Cold Drink: {selectedColdDrink}</p>}
-              <p>Number of Guests: {numberOfGuests}</p>
+              {selectedHotDrink && (
+                <p>
+                  <span className="font-semibold">Hot Drink:</span>{" "}
+                  {selectedHotDrink}
+                </p>
+              )}
+              {selectedColdDrink && (
+                <p>
+                  <span className="font-semibold">Cold Drink:</span>{" "}
+                  {selectedColdDrink}
+                </p>
+              )}
+              <p>
+                <span className="font-semibold">Number of Guests:</span>{" "}
+                {numberOfGuests}
+              </p>
               <Button onClick={confirmOrder}>Confirm order</Button>
             </>
           )}
