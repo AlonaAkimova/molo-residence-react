@@ -1,9 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
-
 import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
+import db from "@/store";
 import Button from "@/components/Button";
+import { addDoc, collection } from "firebase/firestore";
 export default function Summary() {
   const { breakfastOrder, numberOfGuests } = useBreakfastOrder();
 
@@ -23,7 +24,23 @@ export default function Summary() {
 
     function confirmOrder() {
       console.log(breakfastOrder, "Order Confirmed");
-      // Send the summary to the database or perform any other actions
+      const orderData = {
+        breakfast: selectedBreakfast,
+        extras: selectedExtras,
+        options: selectedOptions,
+        hotDrink: selectedHotDrink,
+        coldDrink: selectedColdDrink,
+        guests: numberOfGuests,
+        timestamp: new Date(),
+      };
+
+      addDoc(collection(db, "breakfast"), orderData)
+        .then((docRef) => {
+          console.log("Order successfuly sent to Firebase: ", docRef.id);
+        })
+        .catch((err) => {
+          console.log("Error sending order to Firebase: ", err);
+        });
     }
 
     return (
