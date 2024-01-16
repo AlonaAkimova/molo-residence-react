@@ -13,8 +13,8 @@ import {
   LocalizationProvider,
   DatePicker,
   StaticTimePicker,
+  TimePicker,
 } from "@mui/x-date-pickers";
-import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import Button from "@/components/Button";
 import dayjs from "dayjs";
 
@@ -37,24 +37,28 @@ export default function Details() {
 
   const handleDateChange = (date) => {
     if (date) {
-      const formattedDate = dayjs(date).format("DD-MM-YYYY");
-      setSelectedDate(formattedDate);
+      setSelectedDate(date);
       setBreakfastOrderData({ selectedDate: date });
     }
   };
   const handleTimeChange = (time) => {
     if (time) {
-      const formattedTime = dayjs(time).format("HH:mm");
-      setSelectedTime(formattedTime);
+      setSelectedTime(time);
       setBreakfastOrderData({ selectedTime: time });
     }
   };
 
   const handleConfirm = () => {
+    const formattedDate = selectedDate
+      ? dayjs(selectedDate).format("DD-MM-YYYY")
+      : "";
+    const formattedTime = selectedTime
+      ? dayjs(selectedTime).format("HH:mm")
+      : "";
     console.log("Room:", selectedRoom);
     console.log("Comments:", comments);
-    console.log("Date:", selectedDate);
-    console.log("Time:", selectedTime);
+    console.log("Date:", formattedDate);
+    console.log("Time:", formattedTime);
   };
 
   return (
@@ -96,6 +100,7 @@ export default function Details() {
               label="Static Time Picker"
               value={selectedTime}
               onChange={handleTimeChange}
+              orientation="landscape"
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -105,6 +110,8 @@ export default function Details() {
                 />
               )}
               ampm={false}
+              minTime={dayjs().startOf("day").hour(6).minute(0)}
+              maxTime={dayjs().startOf("day").hour(11).minute(30)}
             />
           </LocalizationProvider>
           <p className="text-1xl font-bold mb-2">Additional comments</p>
