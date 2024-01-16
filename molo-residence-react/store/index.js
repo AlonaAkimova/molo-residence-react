@@ -20,4 +20,6 @@ const app = initializeApp(firebaseConfig);
 // init services
 const db = getFirestore(app);
 
-export default db;
+export const sendOrder = (orderData) => {
+  return addDoc(collection(db, "breakfast"), orderData);
+};

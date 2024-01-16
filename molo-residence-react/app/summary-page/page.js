@@ -2,9 +2,8 @@
 import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
-import db from "@/store";
+import { sendOrder } from "@/store";
 import Button from "@/components/Button";
-import { addDoc, collection } from "firebase/firestore";
 export default function Summary() {
   const { breakfastOrder, numberOfGuests } = useBreakfastOrder();
 
@@ -22,26 +21,26 @@ export default function Summary() {
       selectedOptions,
     } = breakfastOrder;
 
-    function confirmOrder() {
+    const confirmOrder = async () => {
       console.log(breakfastOrder, "Order Confirmed");
+
       const orderData = {
-        breakfast: selectedBreakfast,
-        extras: selectedExtras,
-        options: selectedOptions,
-        hotDrink: selectedHotDrink,
-        coldDrink: selectedColdDrink,
+        breakfast: breakfastOrder.selectedBreakfast,
+        extras: breakfastOrder.selectedExtras,
+        options: breakfastOrder.selectedOptions,
+        hotDrink: breakfastOrder.selectedHotDrink,
+        coldDrink: breakfastOrder.selectedColdDrink,
         guests: numberOfGuests,
         timestamp: new Date(),
       };
 
-      addDoc(collection(db, "breakfast"), orderData)
-        .then((docRef) => {
-          console.log("Order successfuly sent to Firebase: ", docRef.id);
-        })
-        .catch((err) => {
-          console.log("Error sending order to Firebase: ", err);
-        });
-    }
+      try {
+        const docRef = await sendOrder(orderData);
+        console.log("Order successfully sent to Firebase: ", docRef.id);
+      } catch (error) {
+        console.error("Error sending order to Firebase: ", error);
+      }
+    };
 
     return (
       <div className="bg-breakfast-background bg-cover bg-center h-screen flex items-center justify-center">

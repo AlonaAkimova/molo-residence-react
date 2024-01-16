@@ -28,6 +28,8 @@ export const BreakfastOrderProvider = ({ children }) => {
     selectedColdDrink: "",
     selectedExtras: [],
     selectedOptions: [],
+    selectedRoomNumber: "",
+    additionalComments: "",
   });
 
   const fetchMenuData = () => {
