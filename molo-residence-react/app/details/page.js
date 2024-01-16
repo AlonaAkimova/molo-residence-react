@@ -1,5 +1,4 @@
 "use client";
-"use client";
 import React, { useState } from "react";
 import Header from "@/components/Header";
 import FormControl from "@mui/material/FormControl";
@@ -17,6 +16,7 @@ import {
 } from "@mui/x-date-pickers";
 import Button from "@/components/Button";
 import dayjs from "dayjs";
+import { useRouter } from "next/navigation";
 
 export default function Details() {
   const { setBreakfastOrderData } = useBreakfastOrder();
@@ -24,6 +24,7 @@ export default function Details() {
   const [comments, setComments] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
+  const router = useRouter();
 
   const handleRoomChange = (event) => {
     setSelectedRoom(event.target.value);
@@ -55,10 +56,24 @@ export default function Details() {
     const formattedTime = selectedTime
       ? dayjs(selectedTime).format("HH:mm")
       : "";
-    console.log("Room:", selectedRoom);
-    console.log("Comments:", comments);
-    console.log("Date:", formattedDate);
-    console.log("Time:", formattedTime);
+    setBreakfastOrderData({
+      selectedRoomNumber: selectedRoom,
+      additionalComments: comments,
+      selectedDate: formattedDate,
+      selectedTime: formattedTime,
+    });
+    console.log(
+      "Room:",
+      selectedRoom,
+      "Comments:",
+      comments,
+      "Date:",
+      formattedDate,
+      "Time:",
+      formattedTime
+    );
+
+    router.push("/summary-page");
   };
 
   return (
@@ -87,28 +102,21 @@ export default function Details() {
               label="Select Date"
               value={selectedDate}
               onChange={handleDateChange}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  fullWidth
-                  variant="outlined"
-                  margin="normal"
-                />
-              )}
+              TextFieldComponent={TextField}
+              fullWidth
+              variant="outlined"
+              margin="normal"
             />
             <StaticTimePicker
               label="Static Time Picker"
+              required
               value={selectedTime}
               onChange={handleTimeChange}
+              TextFieldComponent={TextField}
               orientation="landscape"
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  fullWidth
-                  variant="outlined"
-                  margin="normal"
-                />
-              )}
+              fullWidth
+              variant="outlined"
+              margin="normal"
               ampm={false}
               minTime={dayjs().startOf("day").hour(6).minute(0)}
               maxTime={dayjs().startOf("day").hour(11).minute(30)}

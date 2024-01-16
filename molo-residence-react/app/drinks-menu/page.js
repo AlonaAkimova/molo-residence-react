@@ -37,7 +37,7 @@ export default function DrinksMenu() {
       selectedColdDrink: selectedColdDrink,
     });
 
-    router.push("/summary-page");
+    router.push("/details");
   };
   return (
     <>

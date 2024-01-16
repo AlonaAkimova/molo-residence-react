@@ -23,6 +23,7 @@ export const BreakfastOrderProvider = ({ children }) => {
     hotdrinks: HOTDRINK_MENU,
   });
   const [breakfastOrder, setBreakfastOrder] = useState({
+    selectedNumberOfGuests: "",
     selectedBreakfast: null,
     selectedHotDrink: "",
     selectedColdDrink: "",
