@@ -31,6 +31,8 @@ export const BreakfastOrderProvider = ({ children }) => {
     selectedOptions: [],
     selectedRoomNumber: "",
     additionalComments: "",
+    selectedDate: "",
+    selectedTime: "",
   });
 
   const fetchMenuData = () => {

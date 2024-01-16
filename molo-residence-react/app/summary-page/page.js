@@ -19,6 +19,10 @@ export default function Summary() {
       numberOfGuests,
       selectedExtras,
       selectedOptions,
+      selectedDate,
+      selectedTime,
+      selectedRoomNumber,
+      additionalComments,
     } = breakfastOrder;
 
     const confirmOrder = async () => {
@@ -86,6 +90,10 @@ export default function Summary() {
                 <span className="font-semibold">Number of Guests:</span>{" "}
                 {numberOfGuests}
               </p>
+              <p>Room: {selectedRoomNumber}</p>
+              <p>Comments: {additionalComments}</p>
+              <p>Date: {selectedDate}</p>
+              <p>Time: {selectedTime}</p>
               <Button onClick={confirmOrder}>Confirm order</Button>
             </>
           )}
