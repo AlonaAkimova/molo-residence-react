@@ -1,24 +1,28 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Header from "@/components/Header";
 import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
 import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
 
 export default function GuestNumber() {
-  const {
-    numberOfGuests,
-    handleDecrease,
-    handleIncrease,
-    setBreakfastOrderData,
-  } = useBreakfastOrder();
+  const { setBreakfastOrderData } = useBreakfastOrder();
+  const [numberOfGuests, setNumberOfGuests] = useState(1);
   const router = useRouter();
 
   const handleNextClick = () => {
-    setBreakfastOrderData({ numberOfGuests });
+    console.log("Chosen number of guests:", numberOfGuests);
+    setBreakfastOrderData({ selectedNumberOfGuests: numberOfGuests });
     router.push("/breakfast-list");
   };
 
+  const handleDecrease = () => {
+    setNumberOfGuests((prevGuests) => prevGuests - 1);
+  };
+
+  const handleIncrease = () => {
+    setNumberOfGuests((prevGuests) => prevGuests + 1);
+  };
   return (
     <>
       <Header />

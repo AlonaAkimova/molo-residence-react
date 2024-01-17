@@ -57,14 +57,7 @@ export const BreakfastOrderProvider = ({ children }) => {
 
   const value = {
     numberOfGuests,
-    handleDecrease: () =>
-      setNumberOfGuests((prevGuests) =>
-        prevGuests > 1 ? prevGuests - 1 : prevGuests
-      ),
-    handleIncrease: () =>
-      setNumberOfGuests((prevGuests) =>
-        prevGuests < 6 ? prevGuests + 1 : prevGuests
-      ),
+    setNumberOfGuests,
     breakfastOrder,
     setBreakfastOrderData,
     menuData,
