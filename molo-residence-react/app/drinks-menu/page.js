@@ -16,11 +16,6 @@ export default function DrinksMenu() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("coldDrinks:", menuData.colddrinks);
-    console.log("hotDrinks:", menuData.hotdrinks);
-  }, [menuData]);
-
-  useEffect(() => {
     setCurrentGuestNumber(1);
   }, [numberOfGuests]);
 

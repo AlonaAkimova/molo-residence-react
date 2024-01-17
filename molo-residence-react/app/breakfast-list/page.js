@@ -22,7 +22,6 @@ export default function BreakfastList() {
   function handleBreakfastClick(breakfast) {
     setSelectedBreakfast(breakfast);
     setBreakfastOrderData({ selectedBreakfast: breakfast });
-    setCurrentGuestNumber((prevNumber) => prevNumber + 1);
 
     switch (breakfast.name) {
       case "Breakfast as you like it":

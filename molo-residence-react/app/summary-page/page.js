@@ -53,7 +53,7 @@ export default function Summary() {
           {selectedBreakfast && (
             <>
               <p>
-                <span className="font-semibold">Breakfast:</span>{" "}
+                <span className="font-semibold">Breakfast name:</span>{" "}
                 {selectedBreakfast.name}
               </p>
               <p>
@@ -90,10 +90,21 @@ export default function Summary() {
                 <span className="font-semibold">Number of Guests:</span>{" "}
                 {numberOfGuests}
               </p>
-              <p>Room: {selectedRoomNumber}</p>
-              <p>Comments: {additionalComments}</p>
-              <p>Date: {selectedDate}</p>
-              <p>Time: {selectedTime}</p>
+              <p>
+                <span className="font-semibold">Room:</span>{" "}
+                {selectedRoomNumber}
+              </p>
+              <p>
+                <span className="font-semibold">Comments: </span>{" "}
+                {additionalComments}
+              </p>
+              <p>
+                <span className="font-semibold">Delivery Date:</span>
+                {selectedDate}
+              </p>
+              <p>
+                <span className="font-semibold">Time:</span> {selectedTime}
+              </p>
               <Button onClick={confirmOrder}>Confirm order</Button>
             </>
           )}
