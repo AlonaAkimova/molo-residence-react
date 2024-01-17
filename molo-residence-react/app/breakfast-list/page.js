@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Header from "@/components/Header";
 import { useRouter } from "next/navigation";
 import GuestNumberParagraph from "@/components/TrackGuestNumber";
@@ -7,20 +7,11 @@ import BreakfastItem from "@/components/BreakfastItem";
 import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
 
 export default function BreakfastList() {
-  const [selectedBreakfast, setSelectedBreakfast] = useState([]);
-  const [currentGuestNumber, setCurrentGuestNumber] = useState(1);
   const router = useRouter();
-  const { setBreakfastOrderData, numberOfGuests, menuData } =
-    useBreakfastOrder();
-  useEffect(() => {
-    setBreakfastOrderData({ numberOfGuests });
-  }, [numberOfGuests]);
-  useEffect(() => {
-    setCurrentGuestNumber(1); // Reset guest number when numberOfGuests changes
-  }, [numberOfGuests]);
+  const { setBreakfastOrderData, menuData } = useBreakfastOrder();
 
   function handleBreakfastClick(breakfast) {
-    setSelectedBreakfast(breakfast);
+    console.log("Selected Breakfast:", breakfast);
     setBreakfastOrderData({ selectedBreakfast: breakfast });
 
     switch (breakfast.name) {
@@ -54,9 +45,6 @@ export default function BreakfastList() {
           <h1 className="text-2xl font-bold mb-6">
             Which breakfast do you prefer?
           </h1>
-          {numberOfGuests > 1 && (
-            <GuestNumberParagraph currentGuestNumber={currentGuestNumber} />
-          )}
 
           <ul>{renderBreakfasts()}</ul>
         </div>
