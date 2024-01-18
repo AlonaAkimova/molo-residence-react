@@ -29,11 +29,16 @@ export default function Summary() {
       console.log(breakfastOrder, "Order Confirmed");
 
       const orderData = {
-        breakfast: breakfastOrder.selectedBreakfast,
-        extras: breakfastOrder.selectedExtras,
-        options: breakfastOrder.selectedOptions,
-        hotDrink: breakfastOrder.selectedHotDrink,
-        coldDrink: breakfastOrder.selectedColdDrink,
+        breakfast: {
+          name: selectedBreakfast.name,
+          description: selectedBreakfast.description,
+        },
+        extras: {
+          name: selectedExtras.name,
+          options: selectedOptions.map((option) => option.name),
+        },
+        hotDrink: selectedHotDrink,
+        coldDrink: selectedColdDrink,
         guests: selectedNumberOfGuests,
         timestamp: new Date(),
       };
@@ -64,14 +69,15 @@ export default function Summary() {
                 <p>
                   <span className="font-semibold">Selected Option:</span>{" "}
                   {selectedExtras.name}
-                </p>
-              )}
-              {selectedOptions.length > 0 && (
-                <p>
-                  <span className="font-semibold">Additional:</span>{" "}
-                  {selectedOptions
-                    .map((option) => (option.name ? option.name : option))
-                    .join(", ")}
+                  {selectedExtras.options &&
+                    selectedExtras.options.length > 0 && (
+                      <>
+                        {" "}
+                        {selectedOptions
+                          .map((option) => option.name)
+                          .join(", ")}
+                      </>
+                    )}
                 </p>
               )}
               {selectedHotDrink && (

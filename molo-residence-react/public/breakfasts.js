@@ -1,4 +1,3 @@
-// BREAKFAST_EXTRAS
 // BREAKFAST_MENU
 export const BREAKFAST_MENU = [
   {
@@ -16,6 +15,8 @@ export const BREAKFAST_MENU = [
           { id: 3, name: "with bacon" },
         ],
       },
+      { id: 4, name: "hot sausages" },
+      { id: 5, name: "fried eggs" },
     ],
   },
   {
