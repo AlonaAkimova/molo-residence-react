@@ -8,8 +8,6 @@ import Button from "@/components/Button";
 import GuestNumberParagraph from "@/components/TrackGuestNumber";
 import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
 export default function DrinksMenu() {
-  const [selectedHotDrink, setSelectedHotDrink] = useState("");
-  const [selectedColdDrink, setSelectedColdDrink] = useState("");
   const { setBreakfastOrderData, numberOfGuests, menuData } =
     useBreakfastOrder();
   const [currentGuestNumber, setCurrentGuestNumber] = useState(1);
@@ -19,19 +17,14 @@ export default function DrinksMenu() {
     setCurrentGuestNumber(1);
   }, [numberOfGuests]);
 
-  const handleHotDrinkChange = (event) => {
-    setSelectedHotDrink(event.target.value);
+  const handleHotDrinkChange = (e) => {
+    setBreakfastOrderData({ selectedHotDrink: e.target.value });
   };
 
-  const handleColdDrinkChange = (event) => {
-    setSelectedColdDrink(event.target.value);
+  const handleColdDrinkChange = (e) => {
+    setBreakfastOrderData({ selectedColdDrink: e.target.value });
   };
   const handleNextClick = () => {
-    setBreakfastOrderData({
-      selectedHotDrink: selectedHotDrink,
-      selectedColdDrink: selectedColdDrink,
-    });
-
     router.push("/details");
   };
   return (
@@ -48,12 +41,12 @@ export default function DrinksMenu() {
           <div className="space-y-4">
             <SelectHotDrink
               options={menuData.hotdrinks}
-              value={selectedHotDrink}
+              value=""
               onChange={handleHotDrinkChange}
             />
             <SelectColdDrink
               options={menuData.colddrinks}
-              value={selectedColdDrink}
+              value=""
               onChange={handleColdDrinkChange}
             />
             <div className="flex justify-center">
