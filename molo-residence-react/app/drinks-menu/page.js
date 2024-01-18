@@ -11,6 +11,8 @@ export default function DrinksMenu() {
   const { setBreakfastOrderData, numberOfGuests, menuData } =
     useBreakfastOrder();
   const [currentGuestNumber, setCurrentGuestNumber] = useState(1);
+  const [selectedHotDrink, setSelectedHotDrink] = useState("");
+  const [selectedColdDrink, setSelectedColdDrink] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -18,13 +20,17 @@ export default function DrinksMenu() {
   }, [numberOfGuests]);
 
   const handleHotDrinkChange = (e) => {
-    setBreakfastOrderData({ selectedHotDrink: e.target.value });
+    setSelectedHotDrink(e.target.value);
   };
 
   const handleColdDrinkChange = (e) => {
-    setBreakfastOrderData({ selectedColdDrink: e.target.value });
+    setSelectedColdDrink(e.target.value);
   };
   const handleNextClick = () => {
+    setBreakfastOrderData({
+      selectedHotDrink,
+      selectedColdDrink,
+    });
     router.push("/details");
   };
   return (
@@ -41,12 +47,12 @@ export default function DrinksMenu() {
           <div className="space-y-4">
             <SelectHotDrink
               options={menuData.hotdrinks}
-              value=""
+              value={selectedHotDrink}
               onChange={handleHotDrinkChange}
             />
             <SelectColdDrink
               options={menuData.colddrinks}
-              value=""
+              value={selectedColdDrink}
               onChange={handleColdDrinkChange}
             />
             <div className="flex justify-center">

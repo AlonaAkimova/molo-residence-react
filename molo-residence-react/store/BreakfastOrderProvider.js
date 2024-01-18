@@ -2,8 +2,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import {
   BREAKFAST_MENU,
-  BREAKFAST_EXTRAS,
-  BREAKFAST_OPTIONS,
   COLDDRINK_MENU,
   HOTDRINK_MENU,
 } from "@/public/breakfasts";
@@ -17,8 +15,6 @@ export const BreakfastOrderProvider = ({ children }) => {
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const [menuData, setMenuData] = useState({
     breakfasts: BREAKFAST_MENU,
-    extras: BREAKFAST_EXTRAS,
-    options: BREAKFAST_OPTIONS,
     colddrinks: COLDDRINK_MENU,
     hotdrinks: HOTDRINK_MENU,
   });
@@ -27,7 +23,7 @@ export const BreakfastOrderProvider = ({ children }) => {
     selectedBreakfast: null,
     selectedHotDrink: "",
     selectedColdDrink: "",
-    selectedExtras: [],
+    selectedExtras: "",
     selectedOptions: [],
     selectedRoomNumber: "",
     additionalComments: "",
@@ -39,8 +35,6 @@ export const BreakfastOrderProvider = ({ children }) => {
     // Fetching data from the MenuComponent
     const fetchedMenuData = {
       breakfasts: BREAKFAST_MENU,
-      extras: BREAKFAST_EXTRAS,
-      options: BREAKFAST_OPTIONS,
       colddrinks: COLDDRINK_MENU,
       hotdrinks: HOTDRINK_MENU,
     };

@@ -4,7 +4,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-export default function SelectColdDrink() {
+export default function SelectColdDrink({ value, onChange, options }) {
   return (
     <FormControl fullWidth>
       <InputLabel id="cold-drinks-label">Select a cold drink</InputLabel>
