@@ -10,9 +10,9 @@ export default function BreakfastList() {
   const router = useRouter();
   const { setBreakfastOrderData, menuData } = useBreakfastOrder();
 
-  function handleBreakfastClick(breakfast) {
+  async function handleBreakfastClick(breakfast) {
     console.log("Selected Breakfast:", breakfast);
-    setBreakfastOrderData({ selectedBreakfast: breakfast });
+    await setBreakfastOrderData({ selectedBreakfast: breakfast });
 
     switch (breakfast.name) {
       case "Breakfast as you like it":

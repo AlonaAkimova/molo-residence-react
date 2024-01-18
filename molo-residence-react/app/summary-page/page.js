@@ -5,7 +5,7 @@ import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
 import { sendOrder } from "@/store";
 import Button from "@/components/Button";
 export default function Summary() {
-  const { breakfastOrder, numberOfGuests } = useBreakfastOrder();
+  const { breakfastOrder } = useBreakfastOrder();
 
   useEffect(() => {
     console.log("Breakfast Order:", breakfastOrder);
@@ -16,7 +16,7 @@ export default function Summary() {
       selectedBreakfast,
       selectedHotDrink,
       selectedColdDrink,
-      numberOfGuests,
+      selectedNumberOfGuests,
       selectedExtras,
       selectedOptions,
       selectedDate,
@@ -34,7 +34,7 @@ export default function Summary() {
         options: breakfastOrder.selectedOptions,
         hotDrink: breakfastOrder.selectedHotDrink,
         coldDrink: breakfastOrder.selectedColdDrink,
-        guests: numberOfGuests,
+        guests: selectedNumberOfGuests,
         timestamp: new Date(),
       };
 
@@ -63,7 +63,7 @@ export default function Summary() {
               {selectedExtras && (
                 <p>
                   <span className="font-semibold">Selected Option:</span>{" "}
-                  {selectedExtras}
+                  {selectedExtras.name}
                 </p>
               )}
               {selectedOptions.length > 0 && (
@@ -88,7 +88,7 @@ export default function Summary() {
               )}
               <p>
                 <span className="font-semibold">Number of Guests:</span>{" "}
-                {numberOfGuests}
+                {selectedNumberOfGuests}
               </p>
               <p>
                 <span className="font-semibold">Room:</span>{" "}
