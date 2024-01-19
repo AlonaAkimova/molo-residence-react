@@ -40,11 +40,6 @@ export default function EnergyBreakfast() {
       selectedExtras: selectedExtra,
       selectedOptions,
     });
-
-    console.log("Breakfast:", {
-      selectedExtras: selectedExtra,
-      selectedOptions,
-    });
     router.push("/drinks-menu");
   }
   return (

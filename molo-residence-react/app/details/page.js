@@ -24,6 +24,7 @@ export default function Details() {
   const [comments, setComments] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
+  const [error, setError] = useState(null);
   const router = useRouter();
 
   const handleRoomChange = (event) => {
@@ -62,17 +63,6 @@ export default function Details() {
       selectedDate: formattedDate,
       selectedTime: formattedTime,
     });
-    console.log(
-      "Room:",
-      selectedRoom,
-      "Comments:",
-      comments,
-      "Date:",
-      formattedDate,
-      "Time:",
-      formattedTime
-    );
-
     router.push("/summary-page");
   };
 
@@ -83,9 +73,10 @@ export default function Details() {
         <div className="max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg">
           <h1 className="text-2xl font-bold mb-4">Provide the details</h1>
 
-          <FormControl fullWidth>
+          <FormControl required fullWidth>
             <InputLabel id="room-select-label">Room Number</InputLabel>
             <Select
+              required
               labelId="room-select-label"
               id="room-select"
               value={selectedRoom}
@@ -106,6 +97,12 @@ export default function Details() {
               fullWidth
               variant="outlined"
               margin="normal"
+              slotProps={{
+                textField: {
+                  required: true,
+                },
+              }}
+              onError={(newError) => setError(newError)}
             />
             <StaticTimePicker
               label="Static Time Picker"
