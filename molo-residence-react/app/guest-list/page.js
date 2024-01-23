@@ -11,7 +11,6 @@ export default function GuestNumber() {
   const router = useRouter();
 
   const handleNextClick = () => {
-    console.log("Chosen number of guests:", numberOfGuests);
     setBreakfastOrderData({ selectedNumberOfGuests: numberOfGuests });
     router.push("/breakfast-list");
   };
@@ -44,12 +43,12 @@ export default function GuestNumber() {
               +
             </Button>
           </div>
-          <div
+          <Button
             onClick={handleNextClick}
             className="mt-4 bg-custom-orange text-black shadow-md font-bold text-sm py-2 px-4 rounded cursor-pointer"
           >
             Go to breakfast menu
-          </div>
+          </Button>
         </div>
       </div>
     </>

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import { useRouter } from "next/navigation";
 import SelectHotDrink from "@/components/SelectHotDrink";
-import SelectColdDrink from "@/components/SelectHotDrink";
+import SelectColdDrink from "@/components/SelectColdDrink";
 import Button from "@/components/Button";
 import GuestNumberParagraph from "@/components/TrackGuestNumber";
 import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";

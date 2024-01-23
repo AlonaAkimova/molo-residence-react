@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <AppRouterCacheProvider>
         <BreakfastOrderProvider>
-          <body>{children}</body>
+          <body> {children}</body>
         </BreakfastOrderProvider>
       </AppRouterCacheProvider>
     </html>
