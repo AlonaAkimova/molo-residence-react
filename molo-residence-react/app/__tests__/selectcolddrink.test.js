@@ -1,24 +1,61 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
+import UserEvent, { userEvent } from "@testing-library/user-event";
 import SelectColdDrink from "@/components/SelectColdDrink";
 
-jest.mock("@mui/material/FormControl");
-jest.mock("@mui/material/InputLabel");
-jest.mock("@mui/material/Select");
-jest.mock("@mui/material/MenuItem");
+describe("Select cold drink test component", () => {
+  it("should display label", async () => {
+    const options = [
+      { id: 1, name: "Cold drinks", description: "Orange juice" },
+      { id: 2, name: "Cold drinks", description: "Grapefruit juice" },
+    ];
+    render(<SelectColdDrink options={options} />);
+    expect(
+      await screen.findByLabelText("Select a cold drink")
+    ).toBeInTheDocument();
+  });
+  it("should display dropdown menu", async () => {
+    const options = [
+      { id: 1, name: "Cold drinks", description: "Orange juice" },
+      { id: 2, name: "Cold drinks", description: "Grapefruit juice" },
+    ];
+    render(<SelectColdDrink options={options} />);
 
-test("renders SelectColdDrink component", () => {
-  // Mock data for options
-  const options = [
-    { id: 1, description: "Cola" },
-    { id: 2, description: "Lemonade" },
-    { id: 3, description: "Iced Tea" },
-  ];
+    expect(
+      within(await screen.findByTestId("cold-drinks")).getByRole("combobox")
+    ).toBeInTheDocument();
+  });
 
-  // Render the component
-  render(<SelectColdDrink value="" onChange={() => {}} options={options} />);
-
-  options.forEach((option) => {
-    expect(screen.getByText(option.description)).toBeInTheDocument();
+  it("should display options", async () => {
+    const options = [
+      { id: 1, name: "Cold drinks", description: "Orange juice" },
+      { id: 2, name: "Cold drinks", description: "Grapefruit juice" },
+    ];
+    render(<SelectColdDrink options={options} />);
+    const dropdown = within(await screen.findByTestId("cold-drinks")).getByRole(
+      "combobox"
+    );
+    await userEvent.click(dropdown);
+    expect(
+      await screen.findByRole("option", { name: "Orange juice" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("option", { name: "Grapefruit juice" })
+    ).toBeInTheDocument();
+  });
+  it("should display selected value", async () => {
+    const options = [
+      { id: 1, name: "Cold drinks", description: "Orange juice" },
+      { id: 2, name: "Cold drinks", description: "Grapefruit juice" },
+    ];
+    render(<SelectColdDrink options={options} />);
+    const dropdown = within(await screen.findByTestId("cold-drinks")).getByRole(
+      "combobox"
+    );
+    await userEvent.click(dropdown);
+    await userEvent.click(
+      await screen.findByRole("option", { name: "Orange juice" })
+    );
+    expect(screen.getByText("Orange juice")).toBeInTheDocument();
   });
 });
