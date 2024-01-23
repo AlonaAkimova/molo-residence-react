@@ -1,8 +1,30 @@
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
-import GuestNumber from "./page";
+import GuestNumber from "../guest-list/page";
+import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
 import { useRouter } from "next/navigation";
 jest.mock("next/navigation");
+
+jest.mock("@/store/BreakfastOrderProvider", () => ({
+  ...jest.requireActual("@/store/BreakfastOrderProvider"),
+  useBreakfastOrder: jest.fn(),
+}));
+
+test("Button navigates to next page", () => {
+  const mockPush = jest.fn();
+  useRouter.mockReturnValue({
+    push: mockPush,
+  });
+  useBreakfastOrder.mockReturnValue({
+    setBreakfastOrderData: jest.fn(),
+  });
+
+  render(<GuestNumber />);
+  const nextPageButton = screen.getByText("Go to breakfast menu");
+  fireEvent.click(nextPageButton);
+
+  expect(mockPush).toHaveBeenCalledWith("/breakfast-list");
+});
 
 test("Button navigates to next page", () => {
   const mockPush = jest.fn();
