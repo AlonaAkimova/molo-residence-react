@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
-import GuestNumber from "../guest-list/page";
+import GuestNumber from "../../guest-list/page";
 import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
 import { useRouter } from "next/navigation";
 jest.mock("next/navigation");

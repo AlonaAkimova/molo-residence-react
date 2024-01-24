@@ -34,8 +34,8 @@ export default function Summary() {
           description: selectedBreakfast.description,
         },
         extras: {
-          name: selectedExtras.name,
-          options: selectedOptions.map((option) => option.name),
+          name: selectedExtras?.name || "",
+          options: selectedOptions?.map((option) => option.name) || [],
         },
         hotDrink: selectedHotDrink,
         coldDrink: selectedColdDrink,

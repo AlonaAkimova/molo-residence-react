@@ -5,6 +5,7 @@ import {
   COLDDRINK_MENU,
   HOTDRINK_MENU,
 } from "@/public/breakfasts";
+import { getMenuFromLocalStorage } from "./breakfastMenuStorage";
 export const BreakfastOrderContext = createContext({});
 
 export function useBreakfastOrder() {
@@ -32,15 +33,14 @@ export const BreakfastOrderProvider = ({ children }) => {
   });
 
   const fetchMenuData = () => {
-    // Fetching data from the MenuComponent
-    const fetchedMenuData = {
-      breakfasts: BREAKFAST_MENU,
-      colddrinks: COLDDRINK_MENU,
-      hotdrinks: HOTDRINK_MENU,
-    };
-
-    setMenuData(fetchedMenuData);
+    try {
+      const storedMenuData = getMenuFromLocalStorage();
+      setMenuData(storedMenuData);
+    } catch (error) {
+      console.error("Error fetching menu data from local storage:", error);
+    }
   };
+
   useEffect(() => {
     fetchMenuData();
   }, []);
@@ -63,4 +63,5 @@ export const BreakfastOrderProvider = ({ children }) => {
     </BreakfastOrderContext.Provider>
   );
 };
+
 export const useBreakfastOrderContext = () => useContext(BreakfastOrderContext);

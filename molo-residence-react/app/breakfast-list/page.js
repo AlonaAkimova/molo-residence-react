@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "@/components/Header";
 import { useRouter } from "next/navigation";
 import GuestNumberParagraph from "@/components/TrackGuestNumber";

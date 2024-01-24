@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, within } from "@testing-library/react";
-import UserEvent, { userEvent } from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import SelectColdDrink from "@/components/SelectColdDrink";
 
 describe("Select cold drink test component", () => {
@@ -48,14 +48,16 @@ describe("Select cold drink test component", () => {
       { id: 1, name: "Cold drinks", description: "Orange juice" },
       { id: 2, name: "Cold drinks", description: "Grapefruit juice" },
     ];
-    render(<SelectColdDrink options={options} />);
+    const selectedValue = "Orange juice";
+    render(<SelectColdDrink options={options} value={selectedValue} />);
     const dropdown = within(await screen.findByTestId("cold-drinks")).getByRole(
       "combobox"
     );
     await userEvent.click(dropdown);
     await userEvent.click(
-      await screen.findByRole("option", { name: "Orange juice" })
+      await screen.findByRole("option", { name: selectedValue })
     );
+
     expect(screen.getByText("Orange juice")).toBeInTheDocument();
   });
 });

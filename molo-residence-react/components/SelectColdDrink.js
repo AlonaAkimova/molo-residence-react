@@ -13,9 +13,14 @@ export default function SelectColdDrink({ value, onChange, options }) {
           data-testid="cold-drinks"
           labelId="cold-drinks-label"
           id="cold-drinks"
-          value={value}
+          value={value || ""}
           onChange={onChange}
         >
+          {!value && (
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+          )}
           {options.map((drink) => (
             <MenuItem key={drink.id} value={drink.description}>
               {drink.description}

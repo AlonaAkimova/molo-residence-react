@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import RootLayout from "../layout";
+import RootLayout from "../../layout";
 
 test("renders children inside AppRouterCacheProvider and BreakfastOrderProvider", () => {
   // Arrange
