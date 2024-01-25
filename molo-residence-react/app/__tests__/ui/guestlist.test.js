@@ -26,18 +26,6 @@ test("Button navigates to next page", () => {
   expect(mockPush).toHaveBeenCalledWith("/breakfast-list");
 });
 
-test("Button navigates to next page", () => {
-  const mockPush = jest.fn();
-  useRouter.mockReturnValue({
-    push: mockPush,
-  });
-  render(<GuestNumber />);
-  const nextPageButton = screen.getByText("Go to breakfast menu");
-  fireEvent.click(nextPageButton);
-
-  expect(mockPush).toHaveBeenCalledWith("/breakfast-list");
-});
-
 test("GuestNumber component should handle multiple clicks and update the number of guests", () => {
   // Render component and increase the initial number of guests to 3
   render(<GuestNumber />);

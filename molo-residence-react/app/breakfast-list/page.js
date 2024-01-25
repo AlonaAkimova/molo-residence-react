@@ -28,13 +28,15 @@ export default function BreakfastList() {
   }
 
   function renderBreakfasts() {
-    return menuData.breakfasts.map((breakfasts) => (
-      <BreakfastItem
-        key={breakfasts.id}
-        breakfast={breakfasts}
-        onClick={handleBreakfastClick}
-      />
-    ));
+    return menuData && menuData.breakfasts
+      ? menuData.breakfasts.map((breakfast) => (
+          <BreakfastItem
+            key={breakfast.id}
+            breakfast={breakfast}
+            onClick={handleBreakfastClick}
+          />
+        ))
+      : null;
   }
 
   return (
