@@ -1,8 +1,9 @@
 "use client";
+import React from "react";
 import Header from "@/components/Header";
 import Link from "next/link";
 
-export default function HomePage() {
+const HomePage: React.FC = () => {
   return (
     <>
       <Header />
@@ -21,4 +22,6 @@ export default function HomePage() {
       </div>
     </>
   );
-}
+};
+
+export default HomePage;

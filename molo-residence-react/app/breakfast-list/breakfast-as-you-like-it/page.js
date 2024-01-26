@@ -41,10 +41,12 @@ export default function BreakfastAsYouLikeIt() {
               menuData.breakfasts[1].extras &&
               menuData.breakfasts[1].extras.map((extra) => (
                 <FormControlLabel
+                  data-testid="extra-option"
                   key={extra.id}
                   value={extra.name}
                   control={
                     <Radio
+                      data-testid="extra-option"
                       sx={{
                         color: grey[700],
                         "&.Mui-checked": {

@@ -4,15 +4,34 @@ import Header from "@/components/Header";
 import { useRouter } from "next/navigation";
 import GuestNumberParagraph from "@/components/TrackGuestNumber";
 import BreakfastItem from "@/components/BreakfastItem";
-import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
+import { useBreakfastOrder, MenuItem } from "@/store/BreakfastOrderProvider";
 
-export default function BreakfastList() {
+interface BreakfastListProps {}
+
+const BreakfastList: React.FC<BreakfastListProps> = () => {
   const router = useRouter();
-  const { setBreakfastOrderData, menuData } = useBreakfastOrder();
+  console.log("BreakfastList component rendered");
+  const { setBreakfastOrderData, menuData, breakfastOrder, numberOfGuests } =
+    useBreakfastOrder();
+  useEffect(() => {
+    console.log("Effect triggered with breakfastOrder:", breakfastOrder);
+    console.log("Previously selected number of guests:", numberOfGuests);
+  }, [numberOfGuests, breakfastOrder]);
+  async function handleBreakfastClick(breakfast: MenuItem) {
+    console.log("Clicked on Breakfast:", breakfast);
 
-  async function handleBreakfastClick(breakfast) {
-    console.log("Selected Breakfast:", breakfast);
-    await setBreakfastOrderData({ selectedBreakfast: breakfast });
+    setBreakfastOrderData((prevOrder) => {
+      console.log("Previous Order:", prevOrder);
+
+      const updatedOrder = {
+        ...prevOrder,
+        selectedBreakfast: breakfast,
+      };
+
+      console.log("Updated Order:", updatedOrder);
+
+      return updatedOrder;
+    });
 
     switch (breakfast.name) {
       case "Breakfast as you like it":
@@ -53,4 +72,5 @@ export default function BreakfastList() {
       </div>
     </>
   );
-}
+};
+export default BreakfastList;

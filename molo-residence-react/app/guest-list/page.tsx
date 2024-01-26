@@ -1,27 +1,33 @@
 "use client";
 import React, { useState } from "react";
 import Header from "@/components/Header";
-import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
+import { useBreakfastOrderContext } from "@/store/BreakfastOrderProvider";
 import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
 
-export default function GuestNumber() {
-  const { setBreakfastOrderData } = useBreakfastOrder();
+const GuestNumber: React.FC = () => {
+  const { setBreakfastOrder } = useBreakfastOrderContext();
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const router = useRouter();
 
   const handleNextClick = () => {
-    setBreakfastOrderData({ selectedNumberOfGuests: numberOfGuests });
+    console.log("Selected Number of Guests:", numberOfGuests);
+    setBreakfastOrder((prevOrder) => ({
+      ...prevOrder,
+      selectedNumberOfGuests: numberOfGuests,
+    }));
     router.push("/breakfast-list");
   };
-
   const handleDecrease = () => {
-    setNumberOfGuests((prevGuests) => prevGuests - 1);
+    console.log("Decreasing number of guests");
+    setNumberOfGuests((prevGuests) => Math.max(prevGuests - 1, 1));
   };
 
   const handleIncrease = () => {
-    setNumberOfGuests((prevGuests) => prevGuests + 1);
+    console.log("Increasing number of guests");
+    setNumberOfGuests((prevGuests) => Math.min(prevGuests + 1, 6));
   };
+
   return (
     <>
       <Header />
@@ -53,4 +59,6 @@ export default function GuestNumber() {
       </div>
     </>
   );
-}
+};
+
+export default GuestNumber;

@@ -41,9 +41,6 @@ export default function DrinksMenu() {
           <h1 className="text-2xl font-bold mb-6 text-center">
             Something to drink?
           </h1>
-          {numberOfGuests > 1 && (
-            <GuestNumberParagraph currentGuestNumber={currentGuestNumber} />
-          )}
           <div className="space-y-4">
             <SelectHotDrink
               options={menuData.hotdrinks}
