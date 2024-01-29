@@ -27,6 +27,16 @@ interface BreakfastOrder {
   selectedColdDrink: Breakfast | null;
   selectedHotDrink: Breakfast | null;
   selectedNumberOfGuests: number;
+  selectedExtras: Array<{
+    id: number;
+    name: string;
+    options?: Array<{ id: number; name: string }>;
+  }>;
+  selectedOptions: Array<{ id: number; name: string }>;
+  selectedDate?: "";
+  selectedTime?: "";
+  selectedRoom?: number;
+  additionalComments?: string;
 }
 interface BreakfastOrderContextValue {
   menuData: {
@@ -56,6 +66,12 @@ export function BreakfastOrderProvider({
     selectedBreakfast: null,
     selectedColdDrink: null,
     selectedHotDrink: null,
+    selectedExtras: [],
+    selectedOptions: [],
+    selectedDate: "",
+    selectedTime: "",
+    selectedRoom: 1,
+    additionalComments: "",
   });
   const value: BreakfastOrderContextValue = {
     menuData,

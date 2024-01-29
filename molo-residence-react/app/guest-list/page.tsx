@@ -2,30 +2,31 @@
 import React, { useState } from "react";
 import Header from "@/components/Header";
 import { useBreakfastOrderContext } from "@/store/BreakfastOrderProvider";
+
 import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
 
 const GuestNumber: React.FC = () => {
-  const { setBreakfastOrder } = useBreakfastOrderContext();
+  const { breakfastOrder, setBreakfastOrder } = useBreakfastOrderContext();
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const router = useRouter();
 
   const handleNextClick = () => {
     console.log("Selected Number of Guests:", numberOfGuests);
-    setBreakfastOrder((prevOrder) => ({
-      ...prevOrder,
+    setBreakfastOrder((prevData) => ({
+      ...prevData,
       selectedNumberOfGuests: numberOfGuests,
     }));
     router.push("/breakfast-list");
   };
   const handleDecrease = () => {
     console.log("Decreasing number of guests");
-    setNumberOfGuests((prevGuests) => Math.max(prevGuests - 1, 1));
+    setNumberOfGuests((prevGuests: number) => Math.max(prevGuests - 1, 1));
   };
 
   const handleIncrease = () => {
     console.log("Increasing number of guests");
-    setNumberOfGuests((prevGuests) => Math.min(prevGuests + 1, 6));
+    setNumberOfGuests((prevGuests: number) => Math.min(prevGuests + 1, 6));
   };
 
   return (
