@@ -3,7 +3,7 @@ import React from "react";
 import Header from "@/components/Header";
 import Link from "next/link";
 
-const HomePage: React.FC = () => {
+export default function HomePage() {
   return (
     <>
       <Header />
@@ -22,6 +22,4 @@ const HomePage: React.FC = () => {
       </div>
     </>
   );
-};
-
-export default HomePage;
+}

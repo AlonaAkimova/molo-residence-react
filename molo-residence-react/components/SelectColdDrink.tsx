@@ -2,17 +2,32 @@
 import React from "react";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-export default function SelectHotDrink({ options, value, onChange }) {
+
+interface ColdDrink {
+  id: number;
+  description: string;
+}
+interface ColdDrinkProps {
+  value: string;
+  onChange: (event: SelectChangeEvent<string>, child: React.ReactNode) => void;
+  options: ColdDrink[];
+}
+
+const SelectColdDrink: React.FC<ColdDrinkProps> = ({
+  value,
+  onChange,
+  options,
+}) => {
   return (
     <>
       <FormControl fullWidth>
-        <InputLabel id="hot-drinks-label">Select a hot drink</InputLabel>
+        <InputLabel id="cold-drinks-label">Select a cold drink</InputLabel>
         <Select
-          data-testid="hot-drinks"
-          labelId="hot-drinks-label"
-          id="hot-drinks"
+          data-testid="cold-drinks"
+          labelId="cold-drinks-label"
+          id="cold-drinks"
           value={value || ""}
           onChange={onChange}
         >
@@ -30,4 +45,5 @@ export default function SelectHotDrink({ options, value, onChange }) {
       </FormControl>
     </>
   );
-}
+};
+export default SelectColdDrink;

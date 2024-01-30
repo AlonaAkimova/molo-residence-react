@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import SelectHotDrink from "@/components/SelectHotDrink";
+import { SelectChangeEvent } from "@mui/material";
 
 describe("Select hot drink test component", () => {
   it("should display label", async () => {
@@ -9,7 +10,18 @@ describe("Select hot drink test component", () => {
       { id: 1, name: "Hot drinks", description: "Black Coffee" },
       { id: 2, name: "Hot drinks", description: "White Coffee" },
     ];
-    render(<SelectHotDrink options={options} />);
+    render(
+      <SelectHotDrink
+        options={options}
+        value={""}
+        onChange={function (
+          event: SelectChangeEvent<string>,
+          child: React.ReactNode
+        ): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
+    );
     expect(
       await screen.findByLabelText("Select a hot drink")
     ).toBeInTheDocument();
@@ -19,7 +31,18 @@ describe("Select hot drink test component", () => {
       { id: 1, name: "Hot drinks", description: "Black Coffee" },
       { id: 2, name: "Hot drinks", description: "White Coffee" },
     ];
-    render(<SelectHotDrink options={options} />);
+    render(
+      <SelectHotDrink
+        options={options}
+        value={""}
+        onChange={function (
+          event: SelectChangeEvent<string>,
+          child: React.ReactNode
+        ): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
+    );
 
     expect(
       within(await screen.findByTestId("hot-drinks")).getByRole("combobox")
@@ -31,7 +54,18 @@ describe("Select hot drink test component", () => {
       { id: 1, name: "Hot drinks", description: "Black Coffee" },
       { id: 2, name: "Hot drinks", description: "White Coffee" },
     ];
-    render(<SelectHotDrink options={options} />);
+    render(
+      <SelectHotDrink
+        options={options}
+        value={""}
+        onChange={function (
+          event: SelectChangeEvent<string>,
+          child: React.ReactNode
+        ): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
+    );
     const dropdown = within(await screen.findByTestId("hot-drinks")).getByRole(
       "combobox"
     );
@@ -49,7 +83,18 @@ describe("Select hot drink test component", () => {
       { id: 2, name: "Hot drinks", description: "White Coffee" },
     ];
     const selectedValue = "Black Coffee";
-    render(<SelectHotDrink options={options} value={selectedValue} />);
+    render(
+      <SelectHotDrink
+        options={options}
+        value={selectedValue}
+        onChange={function (
+          event: SelectChangeEvent<string>,
+          child: React.ReactNode
+        ): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
+    );
     const dropdown = within(await screen.findByTestId("hot-drinks")).getByRole(
       "combobox"
     );
