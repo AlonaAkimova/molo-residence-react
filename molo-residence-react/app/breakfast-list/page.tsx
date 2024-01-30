@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { FC, useEffect } from "react";
 import Header from "@/components/Header";
 import { useRouter } from "next/navigation";
 import BreakfastItem from "@/components/BreakfastItem";
@@ -10,18 +10,27 @@ import {
 
 interface BreakfastListProps {}
 
-const BreakfastList: React.FC<BreakfastListProps> = () => {
+const BreakfastList: FC<BreakfastListProps> = () => {
   const router = useRouter();
   console.log("BreakfastList component rendered");
   const { setBreakfastOrder, breakfastOrder, menuData } =
     useBreakfastOrderContext();
-
+  useEffect(() => {
+    console.log(
+      "Number of guests in Breakfast Page:",
+      breakfastOrder.selectedNumberOfGuests
+    );
+  }, []);
   async function handleBreakfastClick(breakfast: Breakfast) {
     console.log("Clicked on Breakfast:", breakfast);
-    setBreakfastOrder((prevOrder) => ({
-      ...prevOrder,
-      selectedBreakfast: breakfast,
-    }));
+    setBreakfastOrder((prevOrder) => {
+      const updatedOrder = {
+        ...prevOrder,
+        selectedBreakfast: breakfast,
+      };
+      console.log("Updated Breakfast Order:", updatedOrder);
+      return updatedOrder;
+    });
 
     switch (breakfast.name) {
       case "Breakfast as you like it":

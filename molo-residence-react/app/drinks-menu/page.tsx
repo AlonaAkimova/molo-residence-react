@@ -1,38 +1,42 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Header from "@/components/Header";
 import { useRouter } from "next/navigation";
 import SelectHotDrink from "@/components/SelectHotDrink";
 import SelectColdDrink from "@/components/SelectColdDrink";
 import Button from "@/components/Button";
-import GuestNumberParagraph from "@/components/TrackGuestNumber";
-import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
-export default function DrinksMenu() {
-  const { setBreakfastOrderData, numberOfGuests, menuData } =
-    useBreakfastOrder();
-  const [currentGuestNumber, setCurrentGuestNumber] = useState(1);
+import { useBreakfastOrderContext } from "@/store/BreakfastOrderProvider";
+const DrinksMenu: FC = () => {
+  const { setBreakfastOrder, menuData, breakfastOrder } =
+    useBreakfastOrderContext();
   const [selectedHotDrink, setSelectedHotDrink] = useState("");
   const [selectedColdDrink, setSelectedColdDrink] = useState("");
   const router = useRouter();
 
-  useEffect(() => {
-    setCurrentGuestNumber(1);
-  }, [numberOfGuests]);
-
-  const handleHotDrinkChange = (e) => {
+  const handleHotDrinkChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setSelectedHotDrink(e.target.value);
   };
 
-  const handleColdDrinkChange = (e) => {
+  const handleColdDrinkChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setSelectedColdDrink(e.target.value);
   };
   const handleNextClick = () => {
-    setBreakfastOrderData({
-      selectedHotDrink,
-      selectedColdDrink,
-    });
+    setBreakfastOrder((prevOrder) => ({
+      ...prevOrder,
+      selectedHotDrink: selectedHotDrink,
+      selectedColdDrink: selectedColdDrink,
+    }));
     router.push("/details");
   };
+  useEffect(() => {
+    console.log("Selected Breakfast:", breakfastOrder.selectedBreakfast);
+    console.log("Selected Hot Drink:", breakfastOrder.selectedHotDrink);
+    console.log("Selected Cold Drink:", breakfastOrder.selectedColdDrink);
+  }, [breakfastOrder]);
   return (
     <>
       <Header />
@@ -60,4 +64,5 @@ export default function DrinksMenu() {
       </div>
     </>
   );
-}
+};
+export default DrinksMenu;

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
 import Image from "next/image";
 import moloLogo from "../../src/assets/molo-residence-logo.png";
 
-const Header: React.FC = () => {
+const Header: FC = () => {
   return (
     <div className="flex justify-center items-start w-full bg-black">
       <div className="w-17 h-17 flex items-center justify-center">

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { FC } from "react";
 import Button from "./Button";
 
 interface BreakfastItemProps {
@@ -15,10 +15,7 @@ interface BreakfastItemProps {
   }) => void;
 }
 
-const BreakfastItem: React.FC<BreakfastItemProps> = ({
-  breakfast,
-  onClick,
-}) => {
+const BreakfastItem: FC<BreakfastItemProps> = ({ breakfast, onClick }) => {
   return (
     <li key={breakfast.id} className="mb-6">
       <div className="flex flex-col items-center">

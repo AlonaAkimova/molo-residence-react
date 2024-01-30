@@ -1,47 +1,63 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FC, ChangeEvent } from "react";
 import Header from "@/components/Header";
 import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
 import GuestNumberParagraph from "@/components/TrackGuestNumber";
-import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
+import { useBreakfastOrderContext } from "@/store/BreakfastOrderProvider";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { grey } from "@mui/material/colors";
 
-export default function EnergyBreakfast() {
-  const { setBreakfastOrderData, menuData } = useBreakfastOrder();
+const EnergyBreakfast: FC = () => {
+  const { setBreakfastOrder, menuData } = useBreakfastOrderContext();
   const router = useRouter();
-  const [selectedExtras, setSelectedExtras] = useState("");
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedExtras, setSelectedExtras] = useState<string>("");
+  const [selectedOptions, setSelectedOptions] = useState<
+    Array<{ id: number; name: string }>
+  >([]);
 
-  function handleRadioChange(event) {
+  function handleRadioChange(event: ChangeEvent<HTMLInputElement>) {
     setSelectedExtras(event.target.value);
   }
-  function handleCheckboxChange(option) {
+
+  function handleCheckboxChange(option: { id: number; name: string }) {
     setSelectedOptions((prevOptions) => {
-      const updatedOptions = prevOptions.includes(option)
-        ? prevOptions.filter((prevOption) => prevOption !== option)
+      const updatedOptions = prevOptions.some(
+        (prevOption) => prevOption.id === option.id
+      )
+        ? prevOptions.filter((prevOption) => prevOption.id !== option.id)
         : [...prevOptions, option];
 
       return updatedOptions;
     });
   }
+
   function handleSelectClick() {
-    if (!selectedExtras) {
+    if (
+      !selectedExtras ||
+      !menuData?.breakfasts ||
+      !menuData.breakfasts[0]?.extras
+    ) {
       return;
     }
-    const selectedExtra = menuData.breakfasts[0].extras.find(
+    const selectedExtra = menuData.breakfasts[0]?.extras.find(
       (extra) => extra.name === selectedExtras
     );
-    setBreakfastOrderData({
-      selectedExtras: selectedExtra,
+    if (!selectedExtra) {
+      return;
+    }
+
+    setBreakfastOrder((prevBreakfastOrder) => ({
+      ...prevBreakfastOrder,
+      selectedExtras: [selectedExtra],
       selectedOptions,
-    });
+    }));
     router.push("/drinks-menu");
   }
+
   return (
     <>
       <Header />
@@ -71,8 +87,8 @@ export default function EnergyBreakfast() {
           </RadioGroup>
           <div className="flex flex-row ml-6">
             {selectedExtras &&
-              menuData.breakfasts[0].extras
-                .find((extra) => extra.name === selectedExtras)
+              menuData.breakfasts[0]?.extras
+                ?.find((extra) => extra.name === selectedExtras)
                 ?.options?.map((option) => (
                   <FormControlLabel
                     key={option.id}
@@ -87,4 +103,5 @@ export default function EnergyBreakfast() {
       </div>
     </>
   );
-}
+};
+export default EnergyBreakfast;

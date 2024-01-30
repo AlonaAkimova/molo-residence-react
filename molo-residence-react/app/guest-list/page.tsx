@@ -1,12 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import Header from "@/components/Header";
 import { useBreakfastOrderContext } from "@/store/BreakfastOrderProvider";
 
 import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
 
-const GuestNumber: React.FC = () => {
+const GuestNumber: FC = () => {
   const { breakfastOrder, setBreakfastOrder } = useBreakfastOrderContext();
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const router = useRouter();

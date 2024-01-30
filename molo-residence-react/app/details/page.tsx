@@ -1,12 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import Header from "@/components/Header";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
-import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
+import { useBreakfastOrderContext } from "@/store/BreakfastOrderProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import {
   LocalizationProvider,
@@ -15,54 +15,58 @@ import {
   TimePicker,
 } from "@mui/x-date-pickers";
 import Button from "@/components/Button";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { useRouter } from "next/navigation";
-
-export default function Details() {
-  const { setBreakfastOrderData } = useBreakfastOrder();
-  const [selectedRoom, setSelectedRoom] = useState("");
-  const [comments, setComments] = useState("");
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTime, setSelectedTime] = useState(null);
-  const [error, setError] = useState(null);
+interface DetailsProps {}
+const Details: FC<DetailsProps> = () => {
+  const { setBreakfastOrder, breakfastOrder } = useBreakfastOrderContext();
+  const [selectedRoom, setSelectedRoom] = useState<string>("");
+  const [comments, setComments] = useState<string>("");
+  const [selectedDate, setSelectedDate] = useState<Dayjs | null>(dayjs());
+  const [selectedTime, setSelectedTime] = useState<Dayjs | null>(dayjs());
+  // const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleRoomChange = (event) => {
+  const handleRoomChange = (event: SelectChangeEvent<string>) => {
     setSelectedRoom(event.target.value);
-    setBreakfastOrderData({ selectedRoomNumber: selectedRoom });
+    setBreakfastOrder((prevOrder) => ({
+      ...prevOrder,
+      selectedRoom: event.target.value,
+    }));
   };
 
-  const handleCommentsChange = (event) => {
+  const handleCommentsChange = (
+    event: React.ChangeEvent<{ value: string }>
+  ) => {
     setComments(event.target.value);
-    setBreakfastOrderData({ additionalComments: comments });
+    setBreakfastOrder((prevOrder) => ({
+      ...prevOrder,
+      additionalComments: event.target.value,
+    }));
   };
 
-  const handleDateChange = (date) => {
+  const handleDateChange = (date: Dayjs | null) => {
     if (date) {
-      setSelectedDate(date);
-      setBreakfastOrderData({ selectedDate: date });
+      const formattedDate = date.format("DD-MM-YYYY");
+      setBreakfastOrder((prevOrder) => ({
+        ...prevOrder,
+        selectedDate: formattedDate,
+      }));
     }
   };
-  const handleTimeChange = (time) => {
+
+  const handleTimeChange = (time: Dayjs | null) => {
     if (time) {
-      setSelectedTime(time);
-      setBreakfastOrderData({ selectedTime: time });
+      const formattedTime = time.format("HH:mm");
+      setBreakfastOrder((prevOrder) => ({
+        ...prevOrder,
+        selectedTime: formattedTime,
+      }));
     }
   };
 
   const handleConfirm = () => {
-    const formattedDate = selectedDate
-      ? dayjs(selectedDate).format("DD-MM-YYYY")
-      : "";
-    const formattedTime = selectedTime
-      ? dayjs(selectedTime).format("HH:mm")
-      : "";
-    setBreakfastOrderData({
-      selectedRoomNumber: selectedRoom,
-      additionalComments: comments,
-      selectedDate: formattedDate,
-      selectedTime: formattedTime,
-    });
+    console.log("Breakfast Order Details:", breakfastOrder);
     router.push("/summary-page");
   };
 
@@ -93,30 +97,14 @@ export default function Details() {
               label="Select Date"
               value={selectedDate}
               onChange={handleDateChange}
-              TextFieldComponent={TextField}
-              fullWidth
-              variant="outlined"
-              margin="normal"
-              slotProps={{
-                textField: {
-                  required: true,
-                },
-              }}
-              onError={(newError) => setError(newError)}
             />
             <StaticTimePicker
-              label="Static Time Picker"
-              required
               value={selectedTime}
               onChange={handleTimeChange}
-              TextFieldComponent={TextField}
               orientation="landscape"
-              fullWidth
-              variant="outlined"
-              margin="normal"
               ampm={false}
-              minTime={dayjs().startOf("day").hour(6).minute(0)}
-              maxTime={dayjs().startOf("day").hour(11).minute(30)}
+              minTime={dayjs().startOf("day").hour(6).minute(30)}
+              maxTime={dayjs().startOf("day").hour(11).minute(0)}
             />
           </LocalizationProvider>
           <p className="text-1xl font-bold mb-2">Additional comments</p>
@@ -136,4 +124,6 @@ export default function Details() {
       </div>
     </>
   );
-}
+};
+
+export default Details;

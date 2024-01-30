@@ -2,7 +2,7 @@
 import Header from "@/components/Header";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
+import { useBreakfastOrderContext } from "@/store/BreakfastOrderProvider";
 import Button from "@/components/Button";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -10,24 +10,34 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { grey } from "@mui/material/colors";
 
 export default function BreakfastAsYouLikeIt() {
-  const { setBreakfastOrderData, menuData } = useBreakfastOrder();
+  const { setBreakfastOrder, menuData } = useBreakfastOrderContext();
   const router = useRouter();
-  const [selectedExtras, setSelectedExtras] = useState("");
+  const [selectedExtras, setSelectedExtras] = useState<string>("");
 
-  function handleRadioChange(event) {
+  function handleRadioChange(event: {
+    target: { value: React.SetStateAction<string> };
+  }) {
     setSelectedExtras(event.target.value);
   }
 
   function handleSelectClick() {
-    if (!selectedExtras) {
+    if (
+      !selectedExtras ||
+      !menuData?.breakfasts ||
+      !menuData.breakfasts[1]?.extras
+    ) {
       return;
     }
     const selectedExtra = menuData.breakfasts[1].extras.find(
       (extra) => extra.name === selectedExtras
     );
-    setBreakfastOrderData({
-      selectedExtras: selectedExtra,
-    });
+    if (!selectedExtra) {
+      return;
+    }
+    setBreakfastOrder((prevBreakfastOrder) => ({
+      ...prevBreakfastOrder,
+      selectedExtras: [selectedExtra],
+    }));
     router.push("/drinks-menu");
   }
   return (

@@ -11,6 +11,7 @@ import {
   COLDDRINK_MENU,
   HOTDRINK_MENU,
 } from "@/public/breakfasts";
+import { Dayjs } from "dayjs";
 
 export interface Breakfast {
   id: number;
@@ -22,10 +23,10 @@ export interface Breakfast {
     options?: Array<{ id: number; name: string }>;
   }>;
 }
-interface BreakfastOrder {
+export interface BreakfastOrder {
   selectedBreakfast: Breakfast | null;
-  selectedColdDrink: Breakfast | null;
-  selectedHotDrink: Breakfast | null;
+  selectedColdDrink: string | null;
+  selectedHotDrink: string | null;
   selectedNumberOfGuests: number;
   selectedExtras: Array<{
     id: number;
@@ -33,9 +34,9 @@ interface BreakfastOrder {
     options?: Array<{ id: number; name: string }>;
   }>;
   selectedOptions: Array<{ id: number; name: string }>;
-  selectedDate?: "";
-  selectedTime?: "";
-  selectedRoom?: number;
+  selectedDate?: string | null;
+  selectedTime?: string | null;
+  selectedRoom?: string;
   additionalComments?: string;
 }
 interface BreakfastOrderContextValue {
@@ -68,9 +69,9 @@ export function BreakfastOrderProvider({
     selectedHotDrink: null,
     selectedExtras: [],
     selectedOptions: [],
-    selectedDate: "",
-    selectedTime: "",
-    selectedRoom: 1,
+    selectedDate: null,
+    selectedTime: null,
+    selectedRoom: "",
     additionalComments: "",
   });
   const value: BreakfastOrderContextValue = {
