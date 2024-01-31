@@ -74,9 +74,8 @@ const Details: FC<DetailsProps> = () => {
     <>
       <Header />
       <div className="bg-breakfast-background bg-cover bg-center h-screen flex items-center justify-center">
-        <div className="max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg">
+        <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
           <h1 className="text-2xl font-bold mb-4">Provide the details</h1>
-
           <FormControl required fullWidth>
             <InputLabel id="room-select-label">Room Number</InputLabel>
             <Select
@@ -94,6 +93,7 @@ const Details: FC<DetailsProps> = () => {
           </FormControl>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
+              disablePast
               label="Select Date"
               value={selectedDate}
               onChange={handleDateChange}

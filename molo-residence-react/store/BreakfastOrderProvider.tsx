@@ -32,7 +32,7 @@ export interface BreakfastOrder {
     id: number;
     name: string;
     options?: Array<{ id: number; name: string }>;
-  }>;
+  }> | null;
   selectedOptions: Array<{ id: number; name: string }>;
   selectedDate?: string | null;
   selectedTime?: string | null;
