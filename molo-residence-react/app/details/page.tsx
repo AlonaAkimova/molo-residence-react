@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useState } from "react";
+import React, { FC, useState, useRef } from "react";
 import Header from "@/components/Header";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -21,7 +21,7 @@ interface DetailsProps {}
 const Details: FC<DetailsProps> = () => {
   const { setBreakfastOrder, breakfastOrder } = useBreakfastOrderContext();
   const [selectedRoom, setSelectedRoom] = useState<string>("");
-  const [comments, setComments] = useState<string>("");
+  const commentsRef = useRef<string>("");
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(dayjs());
   const [selectedTime, setSelectedTime] = useState<Dayjs | null>(dayjs());
   // const [error, setError] = useState<string | null>(null);
@@ -38,10 +38,10 @@ const Details: FC<DetailsProps> = () => {
   const handleCommentsChange = (
     event: React.ChangeEvent<{ value: string }>
   ) => {
-    setComments(event.target.value);
+    commentsRef.current = event.target.value;
     setBreakfastOrder((prevOrder) => ({
       ...prevOrder,
-      additionalComments: event.target.value,
+      additionalComments: commentsRef.current,
     }));
   };
 
@@ -114,7 +114,7 @@ const Details: FC<DetailsProps> = () => {
             label="Comments"
             multiline
             rows={4}
-            value={comments}
+            value={commentsRef.current}
             onChange={handleCommentsChange}
             variant="outlined"
             margin="normal"

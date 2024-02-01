@@ -36,6 +36,7 @@ const Summary: FC = () => {
         coldDrink: selectedColdDrink,
         guests: selectedNumberOfGuests,
         timestamp: new Date(),
+        additionalComments: additionalComments,
       };
 
       try {

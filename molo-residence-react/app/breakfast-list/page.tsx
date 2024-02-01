@@ -15,12 +15,7 @@ const BreakfastList: FC<BreakfastListProps> = () => {
   console.log("BreakfastList component rendered");
   const { setBreakfastOrder, breakfastOrder, menuData } =
     useBreakfastOrderContext();
-  useEffect(() => {
-    console.log(
-      "Number of guests in Breakfast Page:",
-      breakfastOrder.selectedNumberOfGuests
-    );
-  }, []);
+
   async function handleBreakfastClick(breakfast: Breakfast) {
     console.log("Clicked on Breakfast:", breakfast);
     setBreakfastOrder((prevOrder) => {

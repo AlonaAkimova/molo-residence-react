@@ -5,13 +5,13 @@ import React, {
   useState,
   Dispatch,
   SetStateAction,
+  ReactNode,
 } from "react";
 import {
   BREAKFAST_MENU,
   COLDDRINK_MENU,
   HOTDRINK_MENU,
 } from "@/public/breakfasts";
-import { Dayjs } from "dayjs";
 
 export interface Breakfast {
   id: number;
@@ -52,11 +52,13 @@ const BreakfastOrderContext = createContext<
   BreakfastOrderContextValue | undefined
 >(undefined);
 
+type BreakfastOrderProviderProps = {
+  children: ReactNode;
+};
+
 export function BreakfastOrderProvider({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: BreakfastOrderProviderProps) {
   const [menuData, setMenuData] = useState({
     breakfasts: BREAKFAST_MENU,
     colddrinks: COLDDRINK_MENU,
