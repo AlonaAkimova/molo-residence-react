@@ -2,7 +2,8 @@ import React, { ReactNode } from "react";
 import "./globals.css";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { BreakfastOrderProvider } from "@/store/BreakfastOrderProvider";
-
+import Header from "@/components/Header";
+import SharedImage from "@/components/SharedImage";
 interface RootLayoutProps {
   children: ReactNode;
 }
@@ -22,7 +23,10 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
     <html lang="en">
       <body>
         <AppRouterCacheProvider>
-          <BreakfastOrderProvider>{children}</BreakfastOrderProvider>
+          <BreakfastOrderProvider>
+            <Header />
+            {children}
+          </BreakfastOrderProvider>
         </AppRouterCacheProvider>
       </body>
     </html>

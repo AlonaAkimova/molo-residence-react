@@ -133,11 +133,6 @@ const Summary: FC = () => {
     );
   }
 
-  return (
-    <>
-      <Header />
-      {renderSummary()}
-    </>
-  );
+  return <>{renderSummary()}</>;
 };
 export default Summary;

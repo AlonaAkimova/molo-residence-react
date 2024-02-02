@@ -31,7 +31,6 @@ const GuestNumber: FC = () => {
 
   return (
     <>
-      <Header />
       <div className="bg-breakfast-background bg-cover bg-center h-screen flex items-center justify-center">
         <div className="bg-white p-6 rounded-lg shadow-lg text-center">
           <h1 className="text-2xl font-bold mb-4">How many persons?</h1>

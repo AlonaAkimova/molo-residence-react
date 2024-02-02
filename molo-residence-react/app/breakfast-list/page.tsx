@@ -54,7 +54,6 @@ const BreakfastList: FC<BreakfastListProps> = () => {
 
   return (
     <>
-      <Header />
       <div className="bg-breakfast-background bg-cover bg-center min-h-screen flex items-center justify-center">
         <div className="max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg">
           <h1 className="text-2xl font-bold mb-6">

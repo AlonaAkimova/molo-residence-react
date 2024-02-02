@@ -1,6 +1,5 @@
 "use client";
 import React, { FC, useState, useRef } from "react";
-import Header from "@/components/Header";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -72,7 +71,6 @@ const Details: FC<DetailsProps> = () => {
 
   return (
     <>
-      <Header />
       <div className="bg-breakfast-background bg-cover bg-center h-screen flex items-center justify-center">
         <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
           <h1 className="text-2xl font-bold mb-4">Provide the details</h1>

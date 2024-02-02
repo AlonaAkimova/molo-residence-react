@@ -1,5 +1,4 @@
 "use client";
-import Header from "@/components/Header";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useBreakfastOrderContext } from "@/store/BreakfastOrderProvider";
@@ -42,7 +41,6 @@ export default function BreakfastAsYouLikeIt() {
   }
   return (
     <>
-      <Header />
       <div className="bg-breakfast-background bg-cover bg-center h-screen flex items-center justify-center">
         <div className="max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg">
           <h1 className="text-2xl font-bold mb-6">Select option</h1>
