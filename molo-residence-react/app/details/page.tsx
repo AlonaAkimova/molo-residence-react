@@ -18,7 +18,8 @@ import dayjs, { Dayjs } from "dayjs";
 import { useRouter } from "next/navigation";
 interface DetailsProps {}
 const Details: FC<DetailsProps> = () => {
-  const { setBreakfastOrder, breakfastOrder } = useBreakfastOrderContext();
+  const { setBreakfastOrder, breakfastOrder, loading } =
+    useBreakfastOrderContext();
   const [selectedRoom, setSelectedRoom] = useState<string>("");
   const commentsRef = useRef<string>("");
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(dayjs());
@@ -74,50 +75,56 @@ const Details: FC<DetailsProps> = () => {
       <div className="bg-breakfast-background bg-cover bg-center h-screen flex items-center justify-center">
         <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
           <h1 className="text-2xl font-bold mb-4">Provide the details</h1>
-          <FormControl required fullWidth>
-            <InputLabel id="room-select-label">Room Number</InputLabel>
-            <Select
-              required
-              labelId="room-select-label"
-              id="room-select"
-              value={selectedRoom}
-              label="Room Number"
-              onChange={handleRoomChange}
-            >
-              <MenuItem value={1}>Room 1</MenuItem>
-              <MenuItem value={2}>Room 2</MenuItem>
-              <MenuItem value={3}>Room 3</MenuItem>
-            </Select>
-          </FormControl>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              disablePast
-              label="Select Date"
-              value={selectedDate}
-              onChange={handleDateChange}
-            />
-            <StaticTimePicker
-              value={selectedTime}
-              onChange={handleTimeChange}
-              orientation="landscape"
-              ampm={false}
-              minTime={dayjs().startOf("day").hour(6).minute(30)}
-              maxTime={dayjs().startOf("day").hour(11).minute(0)}
-            />
-          </LocalizationProvider>
-          <p className="text-1xl font-bold mb-2">Additional comments</p>
-          <TextField
-            fullWidth
-            id="comments"
-            label="Comments"
-            multiline
-            rows={4}
-            value={commentsRef.current}
-            onChange={handleCommentsChange}
-            variant="outlined"
-            margin="normal"
-          />
-          <Button onClick={handleConfirm}>Confirm</Button>
+          {loading ? (
+            <div className="text-xl font-bold mb-6">Loading...</div>
+          ) : (
+            <>
+              <FormControl required fullWidth>
+                <InputLabel id="room-select-label">Room Number</InputLabel>
+                <Select
+                  required
+                  labelId="room-select-label"
+                  id="room-select"
+                  value={selectedRoom}
+                  label="Room Number"
+                  onChange={handleRoomChange}
+                >
+                  <MenuItem value={1}>Room 1</MenuItem>
+                  <MenuItem value={2}>Room 2</MenuItem>
+                  <MenuItem value={3}>Room 3</MenuItem>
+                </Select>
+              </FormControl>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  disablePast
+                  label="Select Date"
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                />
+                <StaticTimePicker
+                  value={selectedTime}
+                  onChange={handleTimeChange}
+                  orientation="landscape"
+                  ampm={false}
+                  minTime={dayjs().startOf("day").hour(6).minute(30)}
+                  maxTime={dayjs().startOf("day").hour(11).minute(0)}
+                />
+              </LocalizationProvider>
+              <p className="text-1xl font-bold mb-2">Additional comments</p>
+              <TextField
+                fullWidth
+                id="comments"
+                label="Comments"
+                multiline
+                rows={4}
+                value={commentsRef.current}
+                onChange={handleCommentsChange}
+                variant="outlined"
+                margin="normal"
+              />
+              <Button onClick={handleConfirm}>Confirm</Button>
+            </>
+          )}
         </div>
       </div>
     </>

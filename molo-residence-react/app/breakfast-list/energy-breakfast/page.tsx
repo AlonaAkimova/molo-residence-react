@@ -11,7 +11,7 @@ import Checkbox from "@mui/material/Checkbox";
 import { grey } from "@mui/material/colors";
 
 const EnergyBreakfast: FC = () => {
-  const { setBreakfastOrder, menuData } = useBreakfastOrderContext();
+  const { setBreakfastOrder, menuData, loading } = useBreakfastOrderContext();
   const router = useRouter();
   const [selectedExtras, setSelectedExtras] = useState<string>("");
   const [selectedOptions, setSelectedOptions] = useState<
@@ -62,27 +62,32 @@ const EnergyBreakfast: FC = () => {
       <div className="bg-breakfast-background bg-cover bg-center h-screen flex items-center justify-center">
         <div className="max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg">
           <h1 className="text-2xl font-bold mb-6">Select option</h1>
-          <RadioGroup value={selectedExtras} onChange={handleRadioChange}>
-            {menuData &&
-              menuData.breakfasts[0].extras &&
-              menuData.breakfasts[0].extras.map((extra) => (
-                <FormControlLabel
-                  key={extra.id}
-                  value={extra.name}
-                  control={
-                    <Radio
-                      sx={{
-                        color: grey[700],
-                        "&.Mui-checked": {
+          {loading ? (
+            <div className="text-xl font-bold mb-6">Loading...</div>
+          ) : (
+            <RadioGroup value={selectedExtras} onChange={handleRadioChange}>
+              {menuData &&
+                menuData.breakfasts[0].extras &&
+                menuData.breakfasts[0].extras.map((extra) => (
+                  <FormControlLabel
+                    key={extra.id}
+                    value={extra.name}
+                    control={
+                      <Radio
+                        sx={{
                           color: grey[700],
-                        },
-                      }}
-                    />
-                  }
-                  label={extra.name}
-                />
-              ))}
-          </RadioGroup>
+                          "&.Mui-checked": {
+                            color: grey[700],
+                          },
+                        }}
+                      />
+                    }
+                    label={extra.name}
+                  />
+                ))}
+            </RadioGroup>
+          )}
+
           <div className="flex flex-row ml-6">
             {selectedExtras &&
               menuData.breakfasts[0]?.extras

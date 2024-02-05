@@ -13,7 +13,7 @@ interface BreakfastListProps {}
 const BreakfastList: FC<BreakfastListProps> = () => {
   const router = useRouter();
   console.log("BreakfastList component rendered");
-  const { setBreakfastOrder, breakfastOrder, menuData } =
+  const { setBreakfastOrder, breakfastOrder, loading, menuData } =
     useBreakfastOrderContext();
 
   async function handleBreakfastClick(breakfast: Breakfast) {
@@ -59,8 +59,11 @@ const BreakfastList: FC<BreakfastListProps> = () => {
           <h1 className="text-2xl font-bold mb-6">
             Which breakfast do you prefer?
           </h1>
-
-          <ul>{renderBreakfasts()}</ul>
+          {loading ? (
+            <div className="text-xl font-bold mb-6">Loading...</div>
+          ) : (
+            <ul>{renderBreakfasts()}</ul>
+          )}
         </div>
       </div>
     </>

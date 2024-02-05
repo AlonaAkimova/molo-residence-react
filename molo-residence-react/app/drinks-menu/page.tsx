@@ -6,7 +6,7 @@ import SelectColdDrink from "@/components/SelectColdDrink";
 import Button from "@/components/Button";
 import { useBreakfastOrderContext } from "@/store/BreakfastOrderProvider";
 const DrinksMenu: FC = () => {
-  const { setBreakfastOrder, menuData, breakfastOrder } =
+  const { setBreakfastOrder, menuData, breakfastOrder, loading } =
     useBreakfastOrderContext();
   const [selectedHotDrink, setSelectedHotDrink] = useState("");
   const [selectedColdDrink, setSelectedColdDrink] = useState("");
@@ -43,21 +43,25 @@ const DrinksMenu: FC = () => {
           <h1 className="text-2xl font-bold mb-6 text-center">
             Something to drink?
           </h1>
-          <div className="space-y-4">
-            <SelectHotDrink
-              options={menuData.hotdrinks}
-              value={selectedHotDrink}
-              onChange={handleHotDrinkChange}
-            />
-            <SelectColdDrink
-              options={menuData.colddrinks}
-              value={selectedColdDrink}
-              onChange={handleColdDrinkChange}
-            />
-            <div className="flex justify-center">
-              <Button onClick={handleNextClick}>Next</Button>
+          {loading ? (
+            <div className="text-xl font-bold mb-6">Loading...</div>
+          ) : (
+            <div className="space-y-4">
+              <SelectHotDrink
+                options={menuData.hotdrinks}
+                value={selectedHotDrink}
+                onChange={handleHotDrinkChange}
+              />
+              <SelectColdDrink
+                options={menuData.colddrinks}
+                value={selectedColdDrink}
+                onChange={handleColdDrinkChange}
+              />
+              <div className="flex justify-center">
+                <Button onClick={handleNextClick}>Next</Button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </>

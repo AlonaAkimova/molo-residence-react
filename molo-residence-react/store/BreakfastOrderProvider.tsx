@@ -6,12 +6,14 @@ import React, {
   Dispatch,
   SetStateAction,
   ReactNode,
+  useEffect,
 } from "react";
 import {
   BREAKFAST_MENU,
   COLDDRINK_MENU,
   HOTDRINK_MENU,
 } from "@/public/breakfasts";
+import { resolve } from "path";
 
 export interface Breakfast {
   id: number;
@@ -45,6 +47,7 @@ interface BreakfastOrderContextValue {
     colddrinks: Breakfast[];
     hotdrinks: Breakfast[];
   };
+  loading: boolean;
   breakfastOrder: BreakfastOrder;
   setBreakfastOrder: Dispatch<SetStateAction<BreakfastOrder>>;
 }
@@ -76,10 +79,24 @@ export function BreakfastOrderProvider({
     selectedRoom: "",
     additionalComments: "",
   });
+  const [loading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      await new Promise<void>((resolve) => resolve());
+      setMenuData({
+        breakfasts: BREAKFAST_MENU,
+        colddrinks: COLDDRINK_MENU,
+        hotdrinks: HOTDRINK_MENU,
+      });
+      setIsLoading(false);
+    };
+    fetchData();
+  }, []);
   const value: BreakfastOrderContextValue = {
     menuData,
     breakfastOrder,
     setBreakfastOrder,
+    loading,
   };
   return (
     <BreakfastOrderContext.Provider value={value}>
