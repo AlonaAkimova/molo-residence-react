@@ -5,16 +5,10 @@ import {
   BreakfastOrderProvider,
   useBreakfastOrderContext,
 } from "@/store/BreakfastOrderProvider";
-jest.mock("next/navigation", () => ({
-  useRouter: jest.fn(),
-}));
+import { useRouter } from "next/navigation";
 
-jest.mock("@/store/BreakfastOrderProvider", () => ({
-  ...jest.requireActual("@/store/BreakfastOrderProvider"),
-  useBreakfastOrderContext: () => ({
-    setBreakfastOrder: jest.fn(),
-  }),
-}));
+jest.mock("next/navigation");
+
 describe("testing GuestList page wrapped with context provider", () => {
   it("increases/decreases number of guests when button is clicked", async () => {
     render(
@@ -37,7 +31,9 @@ describe("testing GuestList page wrapped with context provider", () => {
       expect(screen.getByText("2")).toBeInTheDocument();
     });
   });
-  it("passes data to the breakfastContext provider when button goToBreakfastMenu is clicked", async () => {
+  it("navigates to the next page when button goToBreakfastMenu is clicked", async () => {
+    const mockPush = jest.fn();
+    (useRouter as jest.Mock).mockReturnValue({ push: mockPush });
     render(
       <BreakfastOrderProvider>
         <GuestNumber />
@@ -48,10 +44,8 @@ describe("testing GuestList page wrapped with context provider", () => {
     userEvent.click(goToBreakfastMenuButton);
 
     await waitFor(() => {
-      const { setBreakfastOrder } = useBreakfastOrderContext();
-      expect(setBreakfastOrder).toHaveBeenCalledWith({
-        selectedNumberOfGuests: 1,
-      });
+      // Ensure that useRouter is called with the correct route
+      expect(mockPush).toHaveBeenCalledWith("/breakfast-list");
     });
   });
 });

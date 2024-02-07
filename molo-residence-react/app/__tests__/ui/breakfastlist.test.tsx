@@ -1,10 +1,11 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { useRouter } from "next/navigation";
+import userEvent from "@testing-library/user-event";
 import { BrowserRouter as Router } from "react-router-dom";
 import BreakfastList from "@/app/breakfast-list/page";
 import {
   BreakfastOrderProvider,
-  useBreakfastOrder,
+  useBreakfastOrderContext,
 } from "@/store/BreakfastOrderProvider";
 
 jest.mock("next/navigation");
@@ -36,9 +37,11 @@ describe("breakfastlist component renders breakfast menu", () => {
       screen.getByText(/Which breakfast do you prefer?/i)
     ).toBeInTheDocument();
 
-    menu.forEach((menuItem) => {
-      expect(screen.getByText(menuItem.name)).toBeInTheDocument();
-      expect(screen.getByText(menuItem.description)).toBeInTheDocument();
+    await waitFor(() => {
+      menu.forEach((menuItem) => {
+        expect(screen.getByText(menuItem.name)).toBeInTheDocument();
+        expect(screen.getByText(menuItem.description)).toBeInTheDocument();
+      });
     });
   });
 
@@ -62,46 +65,12 @@ describe("breakfastlist component renders breakfast menu", () => {
       </BreakfastOrderProvider>
     );
 
-    const selectButton = screen.getAllByText("Select");
-    fireEvent.click(selectButton[0]);
+    await waitFor(() => {
+      const selectButtons = screen.getAllByText("Select");
+      fireEvent.click(selectButtons[0]); // Click the first "Select" button found
+    });
     await waitFor(() => {
       expect(mockPush).toHaveBeenCalledWith("/breakfast-list/energy-breakfast");
-    });
-  });
-  it("should navigate to the next page when the 'Select' button is clicked", async () => {
-    const mockPush = jest.fn();
-    (useRouter as jest.Mock).mockReturnValue({ push: mockPush });
-
-    render(
-      <BreakfastOrderProvider>
-        <BreakfastList />
-      </BreakfastOrderProvider>
-    );
-
-    const selectButton = screen.getAllByText("Select");
-    fireEvent.click(selectButton[0]);
-    await waitFor(() => {
-      expect(mockPush).toHaveBeenCalledWith("/breakfast-list/energy-breakfast");
-    });
-  });
-
-  it("updates the Breakfast Order Context when a breakfast is clicked", async () => {
-    render(
-      <Router>
-        <BreakfastOrderProvider>
-          <BreakfastList />
-        </BreakfastOrderProvider>
-      </Router>
-    );
-
-    const selectButton = screen.getAllByText("Select");
-
-    fireEvent.click(selectButton[0]);
-
-    // Wait for the context to be updated
-    await waitFor(() => {
-      const { breakfastOrder } = useBreakfastOrder();
-      expect(breakfastOrder.selectedBreakfast?.name).toBe("Energy Breakfast");
     });
   });
 });

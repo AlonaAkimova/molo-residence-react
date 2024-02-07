@@ -1,14 +1,17 @@
-import { render, screen, within } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import BreakfastAsYouLikeIt from "@/app/breakfast-list/breakfast-as-you-like-it/page";
-import { useBreakfastOrder } from "@/store/BreakfastOrderProvider";
-
+import {
+  useBreakfastOrderContext,
+  BreakfastOrderProvider,
+} from "@/store/BreakfastOrderProvider";
+import { useRouter } from "next/navigation";
+import { userEvent } from "@testing-library/user-event";
 jest.mock("next/navigation");
 jest.mock("@/store/BreakfastOrderProvider");
 
 describe("BreakfastAsYouLikeIt", () => {
   it("renders the extra menu for breakfast-as-you-like-it component", async () => {
-    const MockData = {
+    const mockData = {
       breakfasts: [
         {
           id: 1,
@@ -38,16 +41,20 @@ describe("BreakfastAsYouLikeIt", () => {
       ],
     };
 
-    useBreakfastOrder.mockReturnValue({
-      setBreakfastOrderData: jest.fn(),
-      menuData: MockData,
+    (useBreakfastOrderContext as jest.Mock).mockReturnValue({
+      setBreakfastOrder: jest.fn(),
+      menuData: mockData,
+      loading: false,
     });
+
     render(<BreakfastAsYouLikeIt />);
+
     expect(
       screen.getByRole("radio", {
         name: "toast with salmon and vegetables",
       })
     ).toBeInTheDocument();
+
     expect(
       screen.getByRole("radio", {
         name: "pancakes with cottage cheese and fruits",

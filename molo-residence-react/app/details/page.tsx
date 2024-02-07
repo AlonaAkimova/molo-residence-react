@@ -24,7 +24,6 @@ const Details: FC<DetailsProps> = () => {
   const commentsRef = useRef<string>("");
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(dayjs());
   const [selectedTime, setSelectedTime] = useState<Dayjs | null>(dayjs());
-  // const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   const handleRoomChange = (event: SelectChangeEvent<string>) => {

@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import {
   BreakfastOrderProvider,
   useBreakfastOrderContext,
@@ -28,11 +28,13 @@ describe("BreakfastOrderProvider", () => {
     };
 
     // Act
-    render(
-      <BreakfastOrderProvider>
-        <TestComponent />
-      </BreakfastOrderProvider>
-    );
+    act(() => {
+      render(
+        <BreakfastOrderProvider>
+          <TestComponent />
+        </BreakfastOrderProvider>
+      );
+    });
 
     // Assert
     expect(screen.getByTestId("menuData")).toBeInTheDocument();

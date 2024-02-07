@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import RootLayout from "../../layout";
 import React from "react";
 
@@ -8,11 +8,13 @@ test("renders children inside AppRouterCacheProvider and BreakfastOrderProvider"
   const ChildComponent: React.FC = () => <div>Child Component</div>;
 
   // Act
-  render(
-    <RootLayout>
-      <ChildComponent />
-    </RootLayout>
-  );
+  act(() => {
+    render(
+      <RootLayout>
+        <ChildComponent />
+      </RootLayout>
+    );
+  });
 
   // Assert
   expect(screen.getByText("Child Component")).toBeInTheDocument();
