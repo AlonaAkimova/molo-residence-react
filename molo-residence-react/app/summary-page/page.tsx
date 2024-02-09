@@ -24,6 +24,7 @@ const Summary: FC = () => {
     } = breakfastOrder;
 
     const confirmOrder = async () => {
+      console.log("Confirm order button clicked");
       const orderData = {
         breakfast: {
           name: selectedBreakfast?.name || "",
@@ -42,8 +43,10 @@ const Summary: FC = () => {
 
       try {
         const docRef = await sendOrder(orderData);
+
         console.log("Order successfully sent to Firebase: ", docRef.id);
         setOrderSent(true);
+        console.log("Order sent status set to true");
         setBreakfastOrder({
           selectedNumberOfGuests: 1,
           selectedBreakfast: null,
@@ -88,8 +91,10 @@ const Summary: FC = () => {
                             <>
                               {" "}
                               {selectedOptions
-                                .map((option) => option.name)
-                                .join(", ")}
+                                ? selectedOptions
+                                    .map((option) => option.name)
+                                    .join(", ")
+                                : ""}
                             </>
                           )}
                         </span>

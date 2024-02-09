@@ -9,6 +9,7 @@ import userEvent from "@testing-library/user-event";
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
 }));
+
 describe("Energy Breakfast Page", () => {
   it("renders menu for energy breakfast options", async () => {
     render(
@@ -37,21 +38,6 @@ describe("Energy Breakfast Page", () => {
   });
 });
 describe("Behavior", () => {
-  // it("should update the context provider when select button is clicked", async () => {
-  //   render(
-  //     <BreakfastOrderProvider>
-  //       <EnergyBreakfast />
-  //     </BreakfastOrderProvider>
-  //   );
-
-  //   const buttonSelect = screen.getByText("Select");
-  //   await userEvent.click(buttonSelect);
-
-  //   const { breakfastOrder } = useBreakfastOrderContext();
-  //   expect(breakfastOrder.selectedExtras).not.toBeNull();
-  //   expect(breakfastOrder.selectedOptions.length).toBeGreaterThan(0);
-  // });
-
   it("should navigate to the next page when button select is clicked", async () => {
     const mockPush = jest.fn();
     (useRouter as jest.Mock).mockReturnValue({

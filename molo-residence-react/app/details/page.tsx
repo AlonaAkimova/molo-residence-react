@@ -81,6 +81,7 @@ const Details: FC<DetailsProps> = () => {
               <FormControl required fullWidth>
                 <InputLabel id="room-select-label">Room Number</InputLabel>
                 <Select
+                  data-testid="room-select-label"
                   required
                   labelId="room-select-label"
                   id="room-select"
@@ -111,6 +112,7 @@ const Details: FC<DetailsProps> = () => {
               </LocalizationProvider>
               <p className="text-1xl font-bold mb-2">Additional comments</p>
               <TextField
+                data-testid="comments"
                 fullWidth
                 id="comments"
                 label="Comments"

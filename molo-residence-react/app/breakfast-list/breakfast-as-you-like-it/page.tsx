@@ -13,13 +13,21 @@ export default function BreakfastAsYouLikeIt() {
   const router = useRouter();
   const [selectedExtras, setSelectedExtras] = useState<string>("");
 
-  function handleRadioChange(event: {
-    target: { value: React.SetStateAction<string> };
-  }) {
-    setSelectedExtras(event.target.value);
-  }
+  const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedExtraName = event.target.value;
+    setSelectedExtras(selectedExtraName);
+    const selectedExtra = menuData.breakfasts[1].extras?.find(
+      (extra) => extra.name === selectedExtraName
+    );
+    if (selectedExtra) {
+      setBreakfastOrder((prevBreakfastOrder) => ({
+        ...prevBreakfastOrder,
+        selectedExtras: [selectedExtra],
+      }));
+    }
+  };
 
-  function handleSelectClick() {
+  const handleSelectClick = () => {
     if (
       !selectedExtras ||
       !menuData?.breakfasts ||
@@ -27,18 +35,8 @@ export default function BreakfastAsYouLikeIt() {
     ) {
       return;
     }
-    const selectedExtra = menuData.breakfasts[1].extras.find(
-      (extra) => extra.name === selectedExtras
-    );
-    if (!selectedExtra) {
-      return;
-    }
-    setBreakfastOrder((prevBreakfastOrder) => ({
-      ...prevBreakfastOrder,
-      selectedExtras: [selectedExtra],
-    }));
     router.push("/drinks-menu");
-  }
+  };
   return (
     <>
       <div className="bg-breakfast-background bg-cover bg-center h-screen flex items-center justify-center">
