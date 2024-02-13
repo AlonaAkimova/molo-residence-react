@@ -6,8 +6,7 @@ import SelectColdDrink from "@/components/SelectColdDrink";
 import Button from "@/components/Button";
 import { useBreakfastOrderContext } from "@/store/BreakfastOrderProvider";
 const DrinksMenu: FC = () => {
-  const { setBreakfastOrder, menuData, breakfastOrder, loading } =
-    useBreakfastOrderContext();
+  const { setBreakfastOrder, menuData, loading } = useBreakfastOrderContext();
   const [selectedHotDrink, setSelectedHotDrink] = useState("");
   const [selectedColdDrink, setSelectedColdDrink] = useState("");
   const router = useRouter();
@@ -31,11 +30,6 @@ const DrinksMenu: FC = () => {
     }));
     router.push("/details");
   };
-  useEffect(() => {
-    console.log("Selected Breakfast:", breakfastOrder.selectedBreakfast);
-    console.log("Selected Hot Drink:", breakfastOrder.selectedHotDrink);
-    console.log("Selected Cold Drink:", breakfastOrder.selectedColdDrink);
-  }, [breakfastOrder]);
   return (
     <>
       <div className="bg-breakfast-background bg-cover bg-center h-screen flex items-center justify-center">

@@ -65,7 +65,6 @@ const Details: FC<DetailsProps> = () => {
   };
 
   const handleConfirm = () => {
-    console.log("Breakfast Order Details:", breakfastOrder);
     router.push("/summary-page");
   };
 

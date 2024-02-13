@@ -12,7 +12,6 @@ const GuestNumber: FC = () => {
   const router = useRouter();
 
   const handleNextClick = () => {
-    console.log("Selected Number of Guests:", numberOfGuests);
     setBreakfastOrder((prevData) => ({
       ...prevData,
       selectedNumberOfGuests: numberOfGuests,
@@ -20,12 +19,10 @@ const GuestNumber: FC = () => {
     router.push("/breakfast-list");
   };
   const handleDecrease = () => {
-    console.log("Decreasing number of guests");
     setNumberOfGuests((prevGuests: number) => Math.max(prevGuests - 1, 1));
   };
 
   const handleIncrease = () => {
-    console.log("Increasing number of guests");
     setNumberOfGuests((prevGuests: number) => Math.min(prevGuests + 1, 6));
   };
 
