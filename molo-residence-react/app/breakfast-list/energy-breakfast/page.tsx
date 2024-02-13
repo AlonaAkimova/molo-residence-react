@@ -2,7 +2,6 @@
 import React, { useState, useEffect, FC, ChangeEvent } from "react";
 import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
-import GuestNumberParagraph from "@/components/TrackGuestNumber";
 import { useBreakfastOrderContext } from "@/store/BreakfastOrderProvider";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
