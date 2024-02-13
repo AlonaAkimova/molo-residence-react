@@ -6,12 +6,8 @@ import {
   within,
 } from "@testing-library/react";
 import Details from "@/app/details/page";
-import {
-  useBreakfastOrderContext,
-  BreakfastOrderProvider,
-} from "@/store/BreakfastOrderProvider";
+import { BreakfastOrderProvider } from "@/store/BreakfastOrderProvider";
 import { useRouter } from "next/navigation";
-import userEvent from "@testing-library/user-event";
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
 }));
@@ -72,9 +68,9 @@ describe("Details Page", () => {
         <Details />
       </BreakfastOrderProvider>
     );
-    await waitFor(() => {
-      fireEvent.click(screen.getByText("Confirm"));
-      expect(mockPush).toHaveBeenCalledWith("/summary-page");
-    });
+    const confirmButton = screen.findByRole("button", { name: "Confirm" });
+    fireEvent.click(await confirmButton);
+
+    expect(mockPush).toHaveBeenCalledWith("/summary-page");
   });
 });

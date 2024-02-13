@@ -22,13 +22,11 @@ describe("Summary Page", () => {
       loading: false,
     });
 
-    await act(async () => {
-      render(
-        <BreakfastOrderProvider>
-          <Summary />
-        </BreakfastOrderProvider>
-      );
-    });
+    render(
+      <BreakfastOrderProvider>
+        <Summary />
+      </BreakfastOrderProvider>
+    );
     await waitFor(() => {
       const heading = screen.getByRole("heading", {
         name: "Summary",

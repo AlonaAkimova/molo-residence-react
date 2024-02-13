@@ -28,13 +28,11 @@ describe("BreakfastOrderProvider", () => {
     };
 
     // Act
-    act(() => {
-      render(
-        <BreakfastOrderProvider>
-          <TestComponent />
-        </BreakfastOrderProvider>
-      );
-    });
+    render(
+      <BreakfastOrderProvider>
+        <TestComponent />
+      </BreakfastOrderProvider>
+    );
 
     // Assert
     expect(screen.getByTestId("menuData")).toBeInTheDocument();

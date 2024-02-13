@@ -6,23 +6,24 @@ jest.mock("@/components/Button", () => ({ onClick, children }: any) => (
   <button onClick={onClick}>{children}</button>
 ));
 
-test("renders BreakfastItem component", () => {
-  const breakfast = {
-    id: 1,
-    name: "Test Breakfast",
-    description: "This is a test breakfast",
-  };
+describe("BreakfastItem", () => {
+  it("renders BreakfastItem component", async () => {
+    const breakfast = {
+      id: 1,
+      name: "Test Breakfast",
+      description: "This is a test breakfast",
+    };
 
-  const onClick = jest.fn();
+    const onClick = jest.fn();
 
-  render(<BreakfastItem breakfast={breakfast} onClick={onClick} />);
+    render(<BreakfastItem breakfast={breakfast} onClick={onClick} />);
 
-  expect(screen.getByText("Test Breakfast")).toBeInTheDocument();
-  expect(screen.getByText("This is a test breakfast")).toBeInTheDocument();
+    expect(screen.getByText("Test Breakfast")).toBeInTheDocument();
+    expect(screen.getByText("This is a test breakfast")).toBeInTheDocument();
 
-  const selectButton = screen.getByText("Select") as HTMLButtonElement;
-  fireEvent.click(selectButton);
+    const selectButton = screen.getByText("Select") as HTMLButtonElement;
+    fireEvent.click(selectButton);
 
-  expect(onClick).toHaveBeenCalledWith(breakfast);
+    expect(onClick).toHaveBeenCalledWith(breakfast);
+  });
 });
-

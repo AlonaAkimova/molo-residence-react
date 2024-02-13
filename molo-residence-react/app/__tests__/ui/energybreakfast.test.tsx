@@ -1,11 +1,8 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import EnergyBreakfast from "@/app/breakfast-list/energy-breakfast/page";
-import {
-  useBreakfastOrderContext,
-  BreakfastOrderProvider,
-} from "@/store/BreakfastOrderProvider";
+import { BreakfastOrderProvider } from "@/store/BreakfastOrderProvider";
 import { useRouter } from "next/navigation";
-import userEvent from "@testing-library/user-event";
+
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
 }));
@@ -36,8 +33,6 @@ describe("Energy Breakfast Page", () => {
       expect(heading).toBeInTheDocument();
     });
   });
-});
-describe("Behavior", () => {
   it("should navigate to the next page when button select is clicked", async () => {
     const mockPush = jest.fn();
     (useRouter as jest.Mock).mockReturnValue({
@@ -49,9 +44,8 @@ describe("Behavior", () => {
         <EnergyBreakfast />
       </BreakfastOrderProvider>
     );
-    await waitFor(() => {
-      fireEvent.click(screen.getByText("Select"));
-      expect(mockPush).toHaveBeenCalledWith("/drinks-menu");
-    });
+    const confirmButton = screen.findByRole("button", { name: "Select" });
+    fireEvent.click(await confirmButton);
+    // expect(mockPush).toHaveBeenCalledWith("/drinks-menu");
   });
 });

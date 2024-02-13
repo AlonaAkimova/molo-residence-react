@@ -8,13 +8,12 @@ test("renders children inside AppRouterCacheProvider and BreakfastOrderProvider"
   const ChildComponent: React.FC = () => <div>Child Component</div>;
 
   // Act
-  act(() => {
-    render(
-      <RootLayout>
-        <ChildComponent />
-      </RootLayout>
-    );
-  });
+
+  render(
+    <RootLayout>
+      <ChildComponent />
+    </RootLayout>
+  );
 
   // Assert
   expect(screen.getByText("Child Component")).toBeInTheDocument();

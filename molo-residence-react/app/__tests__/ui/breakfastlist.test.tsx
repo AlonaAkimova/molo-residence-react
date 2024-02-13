@@ -3,10 +3,7 @@ import { useRouter } from "next/navigation";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter as Router } from "react-router-dom";
 import BreakfastList from "@/app/breakfast-list/page";
-import {
-  BreakfastOrderProvider,
-  useBreakfastOrderContext,
-} from "@/store/BreakfastOrderProvider";
+import { BreakfastOrderProvider } from "@/store/BreakfastOrderProvider";
 
 jest.mock("next/navigation");
 
@@ -49,28 +46,14 @@ describe("breakfastlist component renders breakfast menu", () => {
     const mockPush = jest.fn();
     (useRouter as jest.Mock).mockReturnValue({ push: mockPush });
 
-    const menuData = {
-      breakfasts: [
-        {
-          id: 1,
-          name: "Energy Breakfast",
-          description: "A delicious energy-packed breakfast.",
-        },
-      ],
-    };
-
     render(
       <BreakfastOrderProvider>
         <BreakfastList />
       </BreakfastOrderProvider>
     );
 
-    await waitFor(() => {
-      const selectButtons = screen.getAllByText("Select");
-      fireEvent.click(selectButtons[0]); // Click the first "Select" button found
-    });
-    await waitFor(() => {
-      expect(mockPush).toHaveBeenCalledWith("/breakfast-list/energy-breakfast");
-    });
+    const selectButtons = await screen.findAllByText("Select");
+    fireEvent.click(selectButtons[0]);
+    expect(mockPush).toHaveBeenCalledWith("/breakfast-list/energy-breakfast");
   });
 });

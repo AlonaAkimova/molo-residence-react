@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect, FC } from "react";
-import Header from "@/components/Header";
 import { useBreakfastOrderContext } from "@/store/BreakfastOrderProvider";
 import { sendOrder } from "@/store";
 import Button from "@/components/Button";

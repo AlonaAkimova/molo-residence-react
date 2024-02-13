@@ -11,7 +11,6 @@ import {
   LocalizationProvider,
   DatePicker,
   StaticTimePicker,
-  TimePicker,
 } from "@mui/x-date-pickers";
 import Button from "@/components/Button";
 import dayjs, { Dayjs } from "dayjs";
@@ -122,7 +121,13 @@ const Details: FC<DetailsProps> = () => {
                 variant="outlined"
                 margin="normal"
               />
-              <Button onClick={handleConfirm}>Confirm</Button>
+              <Button
+                aria-label="Confirm"
+                role="button"
+                onClick={handleConfirm}
+              >
+                Confirm
+              </Button>
             </>
           )}
         </div>

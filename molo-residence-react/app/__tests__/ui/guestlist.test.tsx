@@ -21,12 +21,12 @@ describe("testing GuestList page wrapped with context provider", () => {
     expect(numberOfGuestsText).toBeInTheDocument();
 
     const decreaseButton = screen.getByText("-");
-    userEvent.click(decreaseButton);
+    await userEvent.click(decreaseButton);
     expect(screen.getByText("1")).toBeInTheDocument();
     1;
 
     const increaseButton = screen.getByText("+");
-    userEvent.click(increaseButton);
+    await userEvent.click(increaseButton);
     await waitFor(() => {
       expect(screen.getByText("2")).toBeInTheDocument();
     });
@@ -41,7 +41,7 @@ describe("testing GuestList page wrapped with context provider", () => {
     );
 
     const goToBreakfastMenuButton = screen.getByText("Go to breakfast menu");
-    userEvent.click(goToBreakfastMenuButton);
+    await userEvent.click(goToBreakfastMenuButton);
 
     await waitFor(() => {
       // Ensure that useRouter is called with the correct route

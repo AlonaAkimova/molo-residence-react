@@ -36,9 +36,9 @@ describe("Drinks Menu component", () => {
         <DrinksMenu />
       </BreakfastOrderProvider>
     );
-    await waitFor(() => {
-      fireEvent.click(screen.getByText("Next"));
-      expect(mockPush).toHaveBeenCalledWith("/details");
-    });
+
+    const confirmButton = screen.findByRole("button", { name: "Next" });
+    fireEvent.click(await confirmButton);
+    expect(mockPush).toHaveBeenCalledWith("/details");
   });
 });
