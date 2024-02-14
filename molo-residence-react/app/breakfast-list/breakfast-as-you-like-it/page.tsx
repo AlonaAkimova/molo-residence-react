@@ -41,9 +41,9 @@ export default function BreakfastAsYouLikeIt() {
     <>
       <div className="bg-breakfast-background bg-cover bg-center h-screen flex items-center justify-center">
         <div className="max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg">
-          <h1 className="text-2xl font-bold mb-6">Select option</h1>
+          <h1 className="text-neutral-950 font-bold mb-6">Select option</h1>
           {loading ? (
-            <div className="text-xl font-bold mb-6">Loading...</div>
+            <div className="text-neutral-950 font-bold mb-6">Loading...</div>
           ) : (
             <RadioGroup value={selectedExtras} onChange={handleRadioChange}>
               {menuData &&

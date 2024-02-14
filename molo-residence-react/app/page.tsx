@@ -7,8 +7,8 @@ export default function HomePage() {
     <>
       <div className="bg-breakfast-background bg-cover bg-center min-h-screen overflow-hidden flex items-center justify-center">
         <div className="bg-white p-8 rounded-lg shadow-lg text-center">
-          <h1 className="text-lg font-bold mb-4">Breakfast in bed</h1>
-          <p className="text-base">
+          <h1 className="text-neutral-950 font-bold mb-4">Breakfast in bed</h1>
+          <p className="text-neutral-950">
             Try our delicious breakfast served straight to your room
           </p>
           <Link href="/guest-list">

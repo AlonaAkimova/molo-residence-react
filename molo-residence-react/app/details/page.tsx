@@ -67,7 +67,9 @@ const Details: FC<DetailsProps> = () => {
     <>
       <div className="bg-breakfast-background bg-cover bg-center h-screen flex items-center justify-center">
         <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
-          <h1 className="text-2xl font-bold mb-4">Provide the details</h1>
+          <h1 className="text-neutral-950 font-bold mb-4">
+            Provide the details
+          </h1>
           {loading ? (
             <div className="text-xl font-bold mb-6">Loading...</div>
           ) : (
@@ -86,7 +88,9 @@ const Details: FC<DetailsProps> = () => {
                   handleTimeChange={handleTimeChange}
                 />
               </LocalizationProvider>
-              <p className="text-1xl font-bold mb-2">Additional comments</p>
+              <p className="text-neutral-950 font-bold mb-2">
+                Additional comments
+              </p>
               <CommentsField
                 value={commentsRef.current}
                 onChange={handleCommentsChange}
