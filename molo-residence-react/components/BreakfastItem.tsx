@@ -32,5 +32,5 @@ const BreakfastItem: FC<BreakfastItemProps> = ({ breakfast, onClick }) => {
     </li>
   );
 };
-BreakfastItem.displayName = "BreakfastItem";
+(BreakfastItem as FC).displayName = "BreakfastItem";
 export default BreakfastItem;

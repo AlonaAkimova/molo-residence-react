@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, FC } from "react";
+import React, { useState, FC } from "react";
 import { useBreakfastOrderContext } from "@/store/BreakfastOrderProvider";
 import { sendOrder } from "@/store";
 import Button from "@/components/Button";

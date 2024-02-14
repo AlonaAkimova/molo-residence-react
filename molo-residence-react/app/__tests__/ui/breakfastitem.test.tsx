@@ -27,3 +27,4 @@ describe("BreakfastItem", () => {
     expect(onClick).toHaveBeenCalledWith(breakfast);
   });
 });
+BreakfastItem.displayName = "BreakfastItem";
