@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useState, useRef } from "react";
+import React, { FC, useState, useRef, useCallback } from "react";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -22,25 +22,26 @@ const Details: FC<DetailsProps> = () => {
   const [selectedTime, setSelectedTime] = useState<Dayjs | null>(dayjs());
   const router = useRouter();
 
-  const handleRoomChange = (event: SelectChangeEvent<string>) => {
+  const handleRoomChange = useCallback((event: SelectChangeEvent<string>) => {
     setSelectedRoom(event.target.value);
     setBreakfastOrder((prevOrder) => ({
       ...prevOrder,
       selectedRoom: event.target.value,
     }));
-  };
+  }, []);
 
-  const handleCommentsChange = (
-    event: React.ChangeEvent<{ value: string }>
-  ) => {
-    commentsRef.current = event.target.value;
-    setBreakfastOrder((prevOrder) => ({
-      ...prevOrder,
-      additionalComments: commentsRef.current,
-    }));
-  };
+  const handleCommentsChange = useCallback(
+    (event: React.ChangeEvent<{ value: string }>) => {
+      commentsRef.current = event.target.value;
+      setBreakfastOrder((prevOrder) => ({
+        ...prevOrder,
+        additionalComments: commentsRef.current,
+      }));
+    },
+    []
+  );
 
-  const handleDateChange = (date: Dayjs | null) => {
+  const handleDateChange = useCallback((date: Dayjs | null) => {
     if (date) {
       const formattedDate = date.format("DD-MM-YYYY");
       setBreakfastOrder((prevOrder) => ({
@@ -48,9 +49,9 @@ const Details: FC<DetailsProps> = () => {
         selectedDate: formattedDate,
       }));
     }
-  };
+  }, []);
 
-  const handleTimeChange = (time: Dayjs | null) => {
+  const handleTimeChange = useCallback((time: Dayjs | null) => {
     if (time) {
       const formattedTime = time.format("HH:mm");
       setBreakfastOrder((prevOrder) => ({
@@ -58,11 +59,11 @@ const Details: FC<DetailsProps> = () => {
         selectedTime: formattedTime,
       }));
     }
-  };
+  }, []);
 
-  const handleConfirm = () => {
+  const handleConfirm = useCallback(() => {
     router.push("/summary-page");
-  };
+  }, [router]);
 
   return (
     <>
