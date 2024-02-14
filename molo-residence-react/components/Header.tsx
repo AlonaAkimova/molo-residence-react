@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import moloLogo from "../../src/assets/molo-residence-logo.png";
+import moloLogo from "../src/molo-residence-logo.png";
 
 const Header: FC = () => {
   return (

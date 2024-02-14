@@ -8,8 +8,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        "breakfast-background":
-          "url('../../src/assets/breakfast-background.jpg')",
+        "breakfast-background": "url('../src/breakfast-background.jpg')",
       },
       colors: {
         "custom-orange": "#FF8032",
