@@ -33,14 +33,14 @@ const GuestNumber: FC = () => {
           <div className="flex items-center justify-center">
             <Button
               onClick={handleDecrease}
-              className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 ml-2 font-bold text-xl"
+              className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 ml-2 font-bold"
             >
               -
             </Button>
             <p className="text-neutral-950 font-bold">{numberOfGuests}</p>
             <Button
               onClick={handleIncrease}
-              className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 ml-2 font-bold text-xl"
+              className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 ml-2 font-bold"
             >
               +
             </Button>
