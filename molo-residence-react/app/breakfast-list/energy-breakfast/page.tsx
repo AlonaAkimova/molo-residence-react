@@ -81,7 +81,9 @@ const EnergyBreakfast: FC = () => {
                         }}
                       />
                     }
-                    label={extra.name}
+                    label={
+                      <span className="text-neutral-950">{extra.name}</span>
+                    }
                   />
                 ))}
             </RadioGroup>
@@ -95,7 +97,9 @@ const EnergyBreakfast: FC = () => {
                   <FormControlLabel
                     key={option.id}
                     control={<Checkbox />}
-                    label={option.name}
+                    label={
+                      <span className="text-neutral-950">{option.name}</span>
+                    }
                     onChange={() => handleCheckboxChange(option)}
                   />
                 ))}

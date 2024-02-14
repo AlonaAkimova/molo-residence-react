@@ -64,7 +64,9 @@ export default function BreakfastAsYouLikeIt() {
                         }}
                       />
                     }
-                    label={extra.name}
+                    label={
+                      <span className="text-neutral-950">{extra.name}</span>
+                    }
                   />
                 ))}
             </RadioGroup>
