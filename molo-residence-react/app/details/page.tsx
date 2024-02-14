@@ -1,16 +1,14 @@
 "use client";
-import React, { FC, useState, useRef, useCallback } from "react";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import TextField from "@mui/material/TextField";
+import React, { FC, useState, useRef, useCallback, Suspense } from "react";
+import { SelectChangeEvent } from "@mui/material/Select";
 import { useBreakfastOrderContext } from "@/store/BreakfastOrderProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { StaticTimePicker } from "@mui/x-date-pickers/StaticTimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import Button from "@/components/Button";
+const RoomSelect = React.lazy(() => import("@/components/RoomSelect"));
+const DateSelector = React.lazy(() => import("@/components/DateSelect"));
+const TimeSelector = React.lazy(() => import("@/components/TimeSelect"));
+const CommentsField = React.lazy(() => import("@/components/CommentField"));
+const Button = React.lazy(() => import("@/components/Button"));
 import dayjs, { Dayjs } from "dayjs";
 import { useRouter } from "next/navigation";
 interface DetailsProps {}
@@ -73,51 +71,25 @@ const Details: FC<DetailsProps> = () => {
           {loading ? (
             <div className="text-xl font-bold mb-6">Loading...</div>
           ) : (
-            <>
-              <FormControl required fullWidth>
-                <InputLabel id="room-select-label">Room Number</InputLabel>
-                <Select
-                  data-testid="room-select-label"
-                  required
-                  labelId="room-select-label"
-                  id="room-select"
-                  value={selectedRoom}
-                  label="Room Number"
-                  onChange={handleRoomChange}
-                >
-                  <MenuItem value={1}>Room 1</MenuItem>
-                  <MenuItem value={2}>Room 2</MenuItem>
-                  <MenuItem value={3}>Room 3</MenuItem>
-                </Select>
-              </FormControl>
+            <Suspense fallback={<div>Loading...</div>}>
+              <RoomSelect
+                selectedRoom={selectedRoom}
+                handleRoomChange={handleRoomChange}
+              />
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  disablePast
-                  label="Select Date"
-                  value={selectedDate}
-                  onChange={handleDateChange}
+                <DateSelector
+                  selectedDate={selectedDate}
+                  handleDateChange={handleDateChange}
                 />
-                <StaticTimePicker
-                  value={selectedTime}
-                  onChange={handleTimeChange}
-                  orientation="landscape"
-                  ampm={false}
-                  minTime={dayjs().startOf("day").hour(6).minute(30)}
-                  maxTime={dayjs().startOf("day").hour(11).minute(0)}
+                <TimeSelector
+                  selectedTime={selectedTime}
+                  handleTimeChange={handleTimeChange}
                 />
               </LocalizationProvider>
               <p className="text-1xl font-bold mb-2">Additional comments</p>
-              <TextField
-                data-testid="comments"
-                fullWidth
-                id="comments"
-                label="Comments"
-                multiline
-                rows={4}
+              <CommentsField
                 value={commentsRef.current}
                 onChange={handleCommentsChange}
-                variant="outlined"
-                margin="normal"
               />
               <Button
                 aria-label="Confirm"
@@ -126,7 +98,7 @@ const Details: FC<DetailsProps> = () => {
               >
                 Confirm
               </Button>
-            </>
+            </Suspense>
           )}
         </div>
       </div>
