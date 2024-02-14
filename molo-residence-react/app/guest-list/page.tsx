@@ -29,7 +29,7 @@ const GuestNumber: FC = () => {
     <>
       <div className="bg-breakfast-background bg-cover bg-center h-screen flex items-center justify-center">
         <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-          <h1 className="text-2xl font-bold mb-4">How many persons?</h1>
+          <h1 className="text-lg font-bold mb-4">How many persons?</h1>
           <div className="flex items-center justify-center">
             <Button
               onClick={handleDecrease}
@@ -37,7 +37,7 @@ const GuestNumber: FC = () => {
             >
               -
             </Button>
-            <p className="text-lg">{numberOfGuests}</p>
+            <p className="text-base">{numberOfGuests}</p>
             <Button
               onClick={handleIncrease}
               className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 ml-2 font-bold text-xl"
