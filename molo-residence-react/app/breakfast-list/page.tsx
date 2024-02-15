@@ -49,9 +49,9 @@ const BreakfastList: FC<BreakfastListProps> = () => {
 
   return (
     <>
-      <div className="bg-breakfast-background bg-cover bg-center min-h-screen flex items-center justify-center">
-        <div className="max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg">
-          <h1 className="text-2xl font-bold mb-6">
+      <div className="bg-breakfast-background bg-cover bg-center min-h-80 flex items-center justify-center">
+        <div className="max-w-md mx-auto p-4 bg-white shadow-lg rounded-lg">
+          <h1 className=" text-neutral-950 font-bold mb-6">
             Which breakfast do you prefer?
           </h1>
           {loading ? (
