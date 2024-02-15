@@ -63,7 +63,7 @@ const Summary: FC = () => {
     return (
       <div className="bg-breakfast-background bg-cover bg-center h-screen flex items-center justify-center">
         <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
-          <h1 className="text-neutral-950 font-bold mb-6">Summary</h1>
+          <h1 className="text-neutral-950 font-extrabold mb-6">Summary</h1>
           {loading ? (
             <div className="text-neutral-950 font-bold mb-6">Loading...</div>
           ) : (
@@ -168,9 +168,15 @@ const Summary: FC = () => {
             </>
           )}
 
-          {orderSent && <p>Your order was successfully sent!</p>}
+          {orderSent && (
+            <p className="text-neutral-950 font-bold">
+              Your order was successfully sent!
+            </p>
+          )}
           {!selectedBreakfast && !orderSent && (
-            <p>No order details available.</p>
+            <p className="text-neutral-950 font-bold">
+              No order details available.
+            </p>
           )}
         </div>
       </div>
