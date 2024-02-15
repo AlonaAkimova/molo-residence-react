@@ -62,7 +62,7 @@ const Summary: FC = () => {
     };
     return (
       <div className="bg-breakfast-background bg-cover bg-center h-screen flex items-center justify-center">
-        <div className="max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg">
+        <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
           <h1 className="text-neutral-950 font-bold mb-6">Summary</h1>
           {loading ? (
             <div className="text-neutral-950 font-bold mb-6">Loading...</div>
@@ -71,16 +71,22 @@ const Summary: FC = () => {
               {selectedBreakfast && (
                 <>
                   <p>
-                    <span className="font-semibold">Breakfast name:</span>{" "}
+                    <span className="text-neutral-950 font-bold">
+                      Breakfast name:
+                    </span>{" "}
                     {selectedBreakfast.name}
                   </p>
                   <p>
-                    <span className="font-semibold">Description:</span>{" "}
+                    <span className="text-neutral-950 font-bold">
+                      Description:
+                    </span>{" "}
                     {selectedBreakfast.description}
                   </p>
                   {selectedExtras && (
                     <p>
-                      <span className="font-semibold">Selected Option:</span>{" "}
+                      <span className="text-neutral-950 font-bold">
+                        Selected Option:
+                      </span>{" "}
                       {selectedExtras.map((extra) => (
                         <span key={extra.id}>
                           {extra.name}
@@ -100,33 +106,45 @@ const Summary: FC = () => {
                   )}
                   {selectedHotDrink && (
                     <p>
-                      <span className="font-semibold">Hot Drink:</span>{" "}
+                      <span className="text-neutral-950 font-bold">
+                        Hot Drink:
+                      </span>{" "}
                       {selectedHotDrink}
                     </p>
                   )}
                   {selectedColdDrink && (
                     <p>
-                      <span className="font-semibold">Cold Drink:</span>{" "}
+                      <span className="text-neutral-950 font-bold">
+                        Cold Drink:
+                      </span>{" "}
                       {selectedColdDrink}
                     </p>
                   )}
                   <p>
-                    <span className="font-semibold">Number of Guests:</span>{" "}
+                    <span className="text-neutral-950 font-bold">
+                      Number of Guests:
+                    </span>{" "}
                     {selectedNumberOfGuests}
                   </p>
                   <p>
-                    <span className="font-semibold">Room:</span> {selectedRoom}
+                    <span className="text-neutral-950 font-bold">Room:</span>{" "}
+                    {selectedRoom}
                   </p>
                   <p>
-                    <span className="font-semibold">Comments: </span>{" "}
+                    <span className="text-neutral-950 font-bold">
+                      Comments:{" "}
+                    </span>{" "}
                     {additionalComments}
                   </p>
                   <p>
-                    <span className="font-semibold">Delivery Date:</span>
+                    <span className="text-neutral-950 font-bold">
+                      Delivery Date:
+                    </span>
                     {selectedDate}
                   </p>
                   <p>
-                    <span className="font-semibold">Time:</span> {selectedTime}
+                    <span className="text-neutral-950 font-bold">Time:</span>{" "}
+                    {selectedTime}
                   </p>
                   <Button onClick={confirmOrder}>Confirm order</Button>
                 </>
