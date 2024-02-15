@@ -66,7 +66,7 @@ const Details: FC<DetailsProps> = () => {
   return (
     <>
       <div className="bg-breakfast-background bg-cover bg-center h-screen flex items-center justify-center">
-        <div className="lg:max-w-lg md:max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg">
+        <div className="max-w-lg mx-auto p-4 bg-white shadow-lg rounded-lg">
           <h1 className="text-neutral-950 font-bold mb-4">
             Provide the details
           </h1>

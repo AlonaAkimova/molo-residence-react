@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { DatePicker } from "@mui/x-date-pickers";
+import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import dayjs, { Dayjs } from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -14,7 +14,7 @@ const DateSelector: FC<DateSelectorProps> = ({
   handleDateChange,
 }) => {
   return (
-    <DatePicker
+    <MobileDatePicker
       disablePast
       label="Select Date"
       value={selectedDate}

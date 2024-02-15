@@ -1,10 +1,11 @@
 import React, { FC } from "react";
-import { StaticTimePicker } from "@mui/x-date-pickers";
+import { MobileTimePicker } from "@mui/x-date-pickers/MobileTimePicker";
 import dayjs, { Dayjs } from "dayjs";
 
 interface TimeSelectorProps {
   selectedTime: Dayjs | null;
   handleTimeChange: (time: Dayjs | null) => void;
+  className?: string;
 }
 
 const TimeSelector: FC<TimeSelectorProps> = ({
@@ -12,7 +13,7 @@ const TimeSelector: FC<TimeSelectorProps> = ({
   handleTimeChange,
 }) => {
   return (
-    <StaticTimePicker
+    <MobileTimePicker
       value={selectedTime}
       onChange={handleTimeChange}
       orientation="landscape"
