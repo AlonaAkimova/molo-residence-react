@@ -73,14 +73,20 @@ const Summary: FC = () => {
                   <p>
                     <span className="text-neutral-950 font-bold">
                       Breakfast name:
-                    </span>{" "}
-                    {selectedBreakfast.name}
+                    </span>
+                    <span className="text-neutral-950">
+                      {" "}
+                      {selectedBreakfast.name}
+                    </span>
                   </p>
                   <p>
                     <span className="text-neutral-950 font-bold">
                       Description:
-                    </span>{" "}
-                    {selectedBreakfast.description}
+                    </span>
+                    <span className="text-neutral-950">
+                      {" "}
+                      {selectedBreakfast.description}
+                    </span>
                   </p>
                   {selectedExtras && (
                     <p>
@@ -89,15 +95,17 @@ const Summary: FC = () => {
                       </span>{" "}
                       {selectedExtras.map((extra) => (
                         <span key={extra.id}>
-                          {extra.name}
+                          <span className="text-neutral-950">{extra.name}</span>
                           {extra.options && extra.options.length > 0 && (
                             <>
                               {" "}
-                              {selectedOptions
-                                ? selectedOptions
-                                    .map((option) => option.name)
-                                    .join(", ")
-                                : ""}
+                              <span className="text-neutral-950">
+                                {selectedOptions
+                                  ? selectedOptions
+                                      .map((option) => option.name)
+                                      .join(", ")
+                                  : ""}
+                              </span>
                             </>
                           )}
                         </span>
@@ -109,7 +117,9 @@ const Summary: FC = () => {
                       <span className="text-neutral-950 font-bold">
                         Hot Drink:
                       </span>{" "}
-                      {selectedHotDrink}
+                      <span className="text-neutral-950">
+                        {selectedHotDrink}
+                      </span>
                     </p>
                   )}
                   {selectedColdDrink && (
@@ -117,34 +127,40 @@ const Summary: FC = () => {
                       <span className="text-neutral-950 font-bold">
                         Cold Drink:
                       </span>{" "}
-                      {selectedColdDrink}
+                      <span className="text-neutral-950">
+                        {selectedColdDrink}
+                      </span>
                     </p>
                   )}
                   <p>
                     <span className="text-neutral-950 font-bold">
                       Number of Guests:
                     </span>{" "}
-                    {selectedNumberOfGuests}
+                    <span className="text-neutral-950">
+                      {selectedNumberOfGuests}
+                    </span>
                   </p>
                   <p>
                     <span className="text-neutral-950 font-bold">Room:</span>{" "}
-                    {selectedRoom}
+                    <span className="text-neutral-950">{selectedRoom}</span>
                   </p>
                   <p>
                     <span className="text-neutral-950 font-bold">
                       Comments:{" "}
                     </span>{" "}
-                    {additionalComments}
+                    <span className="text-neutral-950">
+                      {additionalComments}
+                    </span>
                   </p>
                   <p>
                     <span className="text-neutral-950 font-bold">
                       Delivery Date:
                     </span>
-                    {selectedDate}
+                    <span className="text-neutral-950"> {selectedDate}</span>
                   </p>
                   <p>
                     <span className="text-neutral-950 font-bold">Time:</span>{" "}
-                    {selectedTime}
+                    <span className="text-neutral-950">{selectedTime}</span>
                   </p>
                   <Button onClick={confirmOrder}>Confirm order</Button>
                 </>
