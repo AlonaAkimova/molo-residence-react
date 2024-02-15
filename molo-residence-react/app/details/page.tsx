@@ -79,14 +79,16 @@ const Details: FC<DetailsProps> = () => {
                 handleRoomChange={handleRoomChange}
               />
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateSelector
-                  selectedDate={selectedDate}
-                  handleDateChange={handleDateChange}
-                />
-                <TimeSelector
-                  selectedTime={selectedTime}
-                  handleTimeChange={handleTimeChange}
-                />
+                <div className="lg:max-w-lg md:max-w-md">
+                  <DateSelector
+                    selectedDate={selectedDate}
+                    handleDateChange={handleDateChange}
+                  />
+                  <TimeSelector
+                    selectedTime={selectedTime}
+                    handleTimeChange={handleTimeChange}
+                  />
+                </div>
               </LocalizationProvider>
               <p className="text-neutral-950 font-bold mb-2">
                 Additional comments

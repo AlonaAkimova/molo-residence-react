@@ -13,6 +13,12 @@ module.exports = {
       colors: {
         "custom-orange": "#FF8032",
       },
+      screens: {
+        sm: "480px", // Define custom screen sizes if needed
+      },
+      maxWidth: {
+        90: "90%", // Define custom max-width utility
+      },
     },
   },
   plugins: [],
