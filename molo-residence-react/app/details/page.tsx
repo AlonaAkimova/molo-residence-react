@@ -74,10 +74,12 @@ const Details: FC<DetailsProps> = () => {
             <div className="text-xl font-bold mb-6">Loading...</div>
           ) : (
             <Suspense fallback={<div>Loading...</div>}>
-              <RoomSelect
-                selectedRoom={selectedRoom}
-                handleRoomChange={handleRoomChange}
-              />
+              <div style={{ marginBottom: "20px" }}>
+                <RoomSelect
+                  selectedRoom={selectedRoom}
+                  handleRoomChange={handleRoomChange}
+                />
+              </div>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className="lg:max-w-lg md:max-w-md">
                   <DateSelector
