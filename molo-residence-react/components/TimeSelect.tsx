@@ -16,7 +16,7 @@ const TimeSelector: FC<TimeSelectorProps> = ({
     <MobileTimePicker
       value={selectedTime}
       onChange={handleTimeChange}
-      orientation="landscape"
+      orientation="portrait"
       ampm={false}
       minTime={dayjs().startOf("day").hour(6).minute(30)}
       maxTime={dayjs().startOf("day").hour(11).minute(0)}
